@@ -1,4 +1,4 @@
-# online School
+# Online School
 
 This is a boilerplate project using the following technologies:
 
