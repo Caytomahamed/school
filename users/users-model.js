@@ -70,11 +70,9 @@ async function insert({
     const [role] = await trx("roles").where("roles.role_name", role_name);
     if (role) {
       role_id_to_use = role.role_id;
-    } else {
-      return;
     }
-  
-    const user= await trx("users").insert({
+
+    const [user_id] = await trx("users").insert({
       username,
       email,
       password,
@@ -85,8 +83,9 @@ async function insert({
       role_id: role_id_to_use,
     });
     console.log(user);
-    // create_user_id = user_id;
+    create_user_id = user_id;
   });
+  console.log("hello");
 
   // return findById(create_user_id);
 }

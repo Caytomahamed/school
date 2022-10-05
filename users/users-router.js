@@ -16,8 +16,7 @@ router.get("/:id", async (req, res) => {
   let { id } = req.params;
   //   console.log(filter);
   try {
-    const user = await model.findById(id);
-    console.log(user);
+    const [user] = await model.findById(id);
     if (!user || user.length === 0) {
       res.status(404).json({ message: `not found this user ${id}` });
       return;
