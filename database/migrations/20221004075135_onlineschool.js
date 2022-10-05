@@ -10,7 +10,7 @@ exports.up = function (knex) {
     })
     .createTable("users", (tbl) => {
       tbl.increments("user_id"),
-        tbl.string("username", 128).notNullable().unique(),
+        tbl.string("username", 128).notNullable(),
         tbl.string("email", 128).notNullable(),
         tbl.integer("password", 128).notNullable(),
         tbl.binary("profileImage"),

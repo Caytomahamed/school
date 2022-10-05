@@ -1,10 +1,9 @@
+const Knex = require("knex");
 const db = require("../database/dbConfig");
+const knexnest = require("knexnest");
 
 function find() {
-  // select user_id,username,profileImage,location,r.role_name from users
-  //   join roles r
-  //   using(role_id)
-  return db("users")
+  const user = db("users")
     .join("roles", "users.role_id", "roles.role_id")
     .select(
       "user_id",
@@ -15,6 +14,11 @@ function find() {
       "update_at",
       "roles.role_name"
     );
+    
+  knexnest(user).then(function (data) {
+    // result = data;
+    console.log(data);
+  });
 }
 
 function findBy(filter) {
@@ -82,12 +86,19 @@ async function insert({
       update_at,
       role_id: role_id_to_use,
     });
-    console.log(user);
+
     create_user_id = user_id;
   });
-  console.log("hello");
 
-  // return findById(create_user_id);
+  return findById(create_user_id);
+}
+
+function update(id, change) {
+  return db("users").update("*", change).where("users.user_id", id);
+}
+
+function remove(id) {
+  return db("users").del().where("users.user_id", id);
 }
 
 module.exports = {
@@ -95,4 +106,6 @@ module.exports = {
   findBy,
   findById,
   insert,
+  update,
+  remove,
 };
