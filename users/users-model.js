@@ -2,8 +2,7 @@ const db = require("../database/dbConfig");
 const knexnest = require("knexnest");
 
 async function find() {
-  let result = [];
-  await db
+  return db
     .select(
       "u.user_id",
       "u.username",
@@ -14,28 +13,7 @@ async function find() {
       "r.role_name"
     )
     .from("users as u")
-    .join("roles as r", "u.role_id", "r.role_id")
-    .then((users) => {
-      users.map((u) => {
-        result.push({
-          id: u.user_id,
-          name: u.username,
-          props: [
-            {
-              image: u.profileImage,
-              location: u.location,
-            },
-            {
-              create: u.create_at,
-              update: u.update_at,
-            },
-          ],
-          role: u.role_name,
-        });
-      });
-    });
-
-  return result;
+    .join("roles as r", "u.role_id", "r.role_id");
 }
 
 function findBy(filter) {
@@ -126,3 +104,40 @@ module.exports = {
   update,
   remove,
 };
+
+// async function find() {
+//   let result = [];
+//   await db
+//     .select(
+//       "u.user_id",
+//       "u.username",
+//       "u.profileImage",
+//       "u.location",
+//       "u.create_at",
+//       "u.update_at",
+//       "r.role_name"
+//     )
+//     .from("users as u")
+//     .join("roles as r", "u.role_id", "r.role_id")
+//     .then((users) => {
+//       users.map((u) => {
+//         result.push({
+//           id: u.user_id,
+//           name: u.username,
+//           props: [
+//             {
+//               image: u.profileImage,
+//               location: u.location,
+//             },
+//             {
+//               create: u.create_at,
+//               update: u.update_at,
+//             },
+//           ],
+//           role: u.role_name,
+//         });
+//       });
+//     });
+
+//   return result;
+// }
