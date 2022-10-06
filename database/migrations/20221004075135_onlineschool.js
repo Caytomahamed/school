@@ -34,6 +34,26 @@ exports.up = function (knex) {
         tbl.string("location", 128),
         tbl.string("create_at").notNullable(),
         tbl.string("update_at");
+    })
+    .createTable("reviews", (tbl) => {
+      tbl.increments("user_id"),
+        tbl.string("username", 128).notNullable(),
+        tbl.string("email", 128).notNullable(),
+        tbl.integer("password", 128).notNullable(),
+        tbl.binary("profileImage"),
+        tbl.string("location", 128),
+        tbl.string("create_at").notNullable(),
+        tbl.string("update_at");
+    })
+    .createTable("video", (tbl) => {
+      tbl.increments("user_id"),
+        tbl.string("username", 128).notNullable(),
+        tbl.string("email", 128).notNullable(),
+        tbl.integer("password", 128).notNullable(),
+        tbl.binary("profileImage"),
+        tbl.string("location", 128),
+        tbl.string("create_at").notNullable(),
+        tbl.string("update_at");
     });
 };
 
