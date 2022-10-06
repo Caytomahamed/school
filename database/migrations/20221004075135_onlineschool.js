@@ -5,8 +5,7 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable("roles", (tbl) => {
-      tbl.increments("role_id"), 
-      tbl.string("role_name");
+      tbl.increments("role_id"), tbl.string("role_name");
     })
     .createTable("users", (tbl) => {
       tbl.increments("user_id"),
@@ -25,6 +24,16 @@ exports.up = function (knex) {
           .inTable("roles")
           .onUpdate("RESTRICT")
           .onDelete("RESTRICT");
+    })
+    .createTable("courses", (tbl) => {
+      tbl.increments("user_id"),
+        tbl.string("username", 128).notNullable(),
+        tbl.string("email", 128).notNullable(),
+        tbl.integer("password", 128).notNullable(),
+        tbl.binary("profileImage"),
+        tbl.string("location", 128),
+        tbl.string("create_at").notNullable(),
+        tbl.string("update_at");
     });
 };
 
@@ -34,6 +43,7 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-        .dropTableIfExists("users")
-        .dropTableIfExists("roles");
+    .dropTableIfExists("courses")
+    .dropTableIfExists("users")
+    .dropTableIfExists("roles");
 };
