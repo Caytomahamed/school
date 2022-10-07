@@ -73,10 +73,18 @@ exports.up = function (knex) {
       tbl.increments("review_id"),
         tbl.string("review_star").notNullable(),
         tbl.string("commnet"),
-        tbl.integer("user_id")
+        tbl
+           .integer("user_id")
            .notNullable()
            .references("user_id")
            ,inTable("users")
+           .onUpdate("RESTRICT")
+           .onDelete("RESTRICT")
+        tbl
+           .integer("course_id")
+           .notNullable()
+           .references("course_id")
+           ,inTable("courses")
            .onUpdate("RESTRICT")
            .onDelete("RESTRICT")
            
@@ -91,6 +99,7 @@ exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("users")
     .dropTableIfExists("courses")
+    .dropTableIfExists("reviews")
     .dropTableIfExists("chapters")
     .dropTableIfExists("videos")
     .dropTableIfExists("roles");
