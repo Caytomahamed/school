@@ -70,14 +70,16 @@ exports.up = function (knex) {
         .onDelete("RESTRICT");
     })
     .createTable("reviews", (tbl) => {
-      tbl.increments("user_id"),
-        tbl.string("username", 128).notNullable(),
-        tbl.string("email", 128).notNullable(),
-        tbl.integer("password", 128).notNullable(),
-        tbl.binary("profileImage"),
-        tbl.string("location", 128),
-        tbl.string("create_at").notNullable(),
-        tbl.string("update_at");
+      tbl.increments("review_id"),
+        tbl.string("review_star").notNullable(),
+        tbl.string("commnet"),
+        tbl.integer("user_id")
+           .notNullable()
+           .references("user_id")
+           ,inTable("users")
+           .onUpdate("RESTRICT")
+           .onDelete("RESTRICT")
+           
     });
 };
 
