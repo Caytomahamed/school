@@ -6,7 +6,7 @@ async function find() {
     .select(
       "u.user_id",
       "u.username",
-      "u.profileImage",
+      "u.image",
       "u.location",
       "u.create_at",
       "u.update_at",
@@ -17,7 +17,7 @@ async function find() {
 }
 
 function findBy(filter) {
-  // select user_id,username,profileImage,location,r.role_name from users
+  // select user_id,username,image,location,r.role_name from users
   //   join roles r
   //   using(role_id)
   //   where(col-name)
@@ -26,7 +26,7 @@ function findBy(filter) {
     .select(
       "user_id",
       "username",
-      "profileImage",
+      "image",
       "location",
       "create_at",
       "update_at",
@@ -36,7 +36,7 @@ function findBy(filter) {
 }
 
 function findById(user_id) {
-  // select user_id,username,profileImage,location,r.role_name from users
+  // select user_id,username,image,location,r.role_name from users
   //   join roles r
   //   using(role_id)
   return db("users")
@@ -44,7 +44,7 @@ function findById(user_id) {
     .select(
       "user_id",
       "username",
-      "profileImage",
+      "image",
       "location",
       "create_at",
       "update_at",
@@ -75,7 +75,7 @@ async function insert({
       username,
       email,
       password,
-      profileImage,
+      image,
       location,
       create_at,
       update_at,
@@ -111,7 +111,7 @@ module.exports = {
 //     .select(
 //       "u.user_id",
 //       "u.username",
-//       "u.profileImage",
+//       "u.image",
 //       "u.location",
 //       "u.create_at",
 //       "u.update_at",
@@ -126,7 +126,7 @@ module.exports = {
 //           name: u.username,
 //           props: [
 //             {
-//               image: u.profileImage,
+//               image: u.image,
 //               location: u.location,
 //             },
 //             {
