@@ -13,7 +13,7 @@ exports.seed = async function (knex) {
       username: "cayto",
       email: "cayto@gmail.com",
       password: 33333,
-      profileImage:
+      image:
         "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
       location: "hargeisa",
       create_at: "2022-10-01",
@@ -24,7 +24,7 @@ exports.seed = async function (knex) {
       username: "mahamed",
       email: "mahamed@gmail.com",
       password: 33333,
-      profileImage:
+      image:
         "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
       location: "hargeisa",
       create_at: "2022-10-01",
@@ -35,7 +35,7 @@ exports.seed = async function (knex) {
       username: "hamse",
       email: "hamse@gmail.com",
       password: 33333,
-      profileImage:
+      image:
         "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
       location: "hargeisa",
       create_at: "2022-10-01",

@@ -12,7 +12,7 @@ exports.up = function (knex) {
         tbl.string("username", 128).notNullable(),
         tbl.string("email", 128).notNullable(),
         tbl.integer("password", 128).notNullable(),
-        tbl.binary("profileImage"),
+        tbl.string("image"),
         tbl.string("location", 128),
         tbl.string("create_at").notNullable(),
         tbl.string("update_at"),
@@ -74,19 +74,19 @@ exports.up = function (knex) {
         tbl.string("review_star").notNullable(),
         tbl.string("commnet"),
         tbl
-           .integer("user_id")
-           .notNullable()
-           .references("user_id")
-           ,inTable("users")
-           .onUpdate("RESTRICT")
-           .onDelete("RESTRICT")
+          .integer("user_id")
+          .notNullable()
+          .references("user_id")
+          .inTable("users")
+          .onUpdate("RESTRICT")
+          .onDelete("RESTRICT"),
         tbl
-           .integer("course_id")
-           .notNullable()
-           .references("course_id")
-           ,inTable("courses")
-           .onUpdate("RESTRICT")
-           .onDelete("RESTRICT")
+          .integer("course_id")
+          .notNullable()
+          .references("course_id")
+          .inTable("courses")
+          .onUpdate("RESTRICT")
+          .onDelete("RESTRICT");
            
     });
 };
@@ -97,9 +97,9 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("users")
-    .dropTableIfExists("courses")
-    .dropTableIfExists("reviews")
+  .dropTableIfExists("users")
+  .dropTableIfExists("courses")
+  .dropTableIfExists("reviews")
     .dropTableIfExists("chapters")
     .dropTableIfExists("videos")
     .dropTableIfExists("roles");
