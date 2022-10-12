@@ -27,11 +27,11 @@ exports.up = function (knex) {
     })
     .createTable("courses", (tbl) => {
       tbl.increments("course_id"),
-        tbl.string("course_title", 128).notNullable(),
-        tbl.string("description").notNullable(),
-        tbl.string("create_at").notNullable(),
-        tbl.string("update_at"),
-        tbl
+      tbl.string("course_title", 128).notNullable(),
+      tbl.string("description").notNullable(),
+      tbl.string("create_at").notNullable(),
+      tbl.string("update_at"),
+      tbl
           .integer("user_id")
           .notNullable()
           .references("user_id")
@@ -52,7 +52,7 @@ exports.up = function (knex) {
     })
     .createTable("videos", (tbl) => {
       tbl.increments("video_id"),
-        tbl.binary("video").notNullable(),
+        tbl.string("video").notNullable(),
         tbl.string("video_title").notNullable(),
         tbl
           .integer("course_id")

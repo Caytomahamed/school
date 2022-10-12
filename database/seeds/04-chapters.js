@@ -4,10 +4,23 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
+  await knex('chapters').del()
+  await knex("chapters").insert([
+    {
+      chapter_title:"Get started",
+      course_id:1,
+    },
+    {
+      chapter_title:"Fundemental 1",
+      course_id:1,
+    },
+    {
+      chapter_title:"Get started",
+      course_id:2,
+    },
+    {
+      chapter_title:"React native basics",
+      course_id:2,
+    },
   ]);
 };
