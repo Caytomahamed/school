@@ -100,7 +100,7 @@ exports.down = function (knex) {
   .dropTableIfExists("users")
   .dropTableIfExists("courses")
   .dropTableIfExists("reviews")
-    .dropTableIfExists("chapters")
-    .dropTableIfExists("videos")
-    .dropTableIfExists("roles");
+  .dropTableIfExists("chapters")
+  .dropTableIfExists("videos")
+  .dropTableIfExists("roles");
 };
