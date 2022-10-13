@@ -7,19 +7,19 @@ exports.seed = async function(knex) {
   await knex('chapters').del()
   await knex("chapters").insert([
     {
-      chapter_title:"Get started",
+      chapter_title:"javascript chapter",
       course_id:1,
     },
     {
-      chapter_title:"Fundemental 1",
+      chapter_title:"javascript chapter",
       course_id:1,
     },
     {
-      chapter_title:"Get started",
+      chapter_title:"React native chapter",
       course_id:2,
     },
     {
-      chapter_title:"React native basics",
+      chapter_title:"React native chapter",
       course_id:2,
     },
   ]);

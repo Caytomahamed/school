@@ -97,10 +97,10 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-  .dropTableIfExists("users")
-  .dropTableIfExists("courses")
   .dropTableIfExists("reviews")
-  .dropTableIfExists("chapters")
   .dropTableIfExists("videos")
+  .dropTableIfExists("chapters")
+  .dropTableIfExists("courses")
+  .dropTableIfExists("users")
   .dropTableIfExists("roles");
 };
