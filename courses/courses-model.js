@@ -3,6 +3,7 @@ const db = require("../database/dbConfig");
 // course_id,
 // course_title,
 // descriptions
+// course_thumanelai
 // instructor,
 // instructor_img,
 // chapters: [
