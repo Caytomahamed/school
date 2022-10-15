@@ -27,11 +27,12 @@ exports.up = function (knex) {
     })
     .createTable("courses", (tbl) => {
       tbl.increments("course_id"),
-      tbl.string("course_title", 128).notNullable(),
-      tbl.string("description").notNullable(),
-      tbl.string("create_at").notNullable(),
-      tbl.string("update_at"),
-      tbl
+        tbl.string("course_title", 128).notNullable(),
+        tbl.string("description").notNullable(),
+        tbl.string("thumnail").notNullable(),
+        tbl.string("create_at").notNullable(),
+        tbl.string("update_at"),
+        tbl
           .integer("user_id")
           .notNullable()
           .references("user_id")
@@ -40,7 +41,7 @@ exports.up = function (knex) {
           .onDelete("RESTRICT");
     })
     .createTable("chapters", (tbl) => {
-        tbl.increments("chapter_id"),
+      tbl.increments("chapter_id"),
         tbl.string("chapter_title", 128).notNullable(),
         tbl
           .integer("course_id")
@@ -71,7 +72,7 @@ exports.up = function (knex) {
     })
     .createTable("reviews", (tbl) => {
       tbl.increments("review_id"),
-        tbl.string("review_star").notNullable(),
+        tbl.string("review_stars").notNullable(),
         tbl.string("commnet"),
         tbl
           .integer("user_id")
@@ -87,7 +88,6 @@ exports.up = function (knex) {
           .inTable("courses")
           .onUpdate("RESTRICT")
           .onDelete("RESTRICT");
-           
     });
 };
 
@@ -97,10 +97,10 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-  .dropTableIfExists("reviews")
-  .dropTableIfExists("videos")
-  .dropTableIfExists("chapters")
-  .dropTableIfExists("courses")
-  .dropTableIfExists("users")
-  .dropTableIfExists("roles");
+    .dropTableIfExists("reviews")
+    .dropTableIfExists("videos")
+    .dropTableIfExists("chapters")
+    .dropTableIfExists("courses")
+    .dropTableIfExists("users")
+    .dropTableIfExists("roles");
 };
