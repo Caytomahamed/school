@@ -10,15 +10,15 @@ function find() {
       //   "username",
       //   "review_stars"
       // )
-      .count("review_stars as stars")
       .from("courses as c")
       .join("users as u", "c.user_id", "u.user_id")
       .join("reviews as r", "c.course_id", "r.course_id")
-      .then((course) => {
-        // console.log(course);
-        console.log(stars);
-        return "work on";
-      })
+      .groupBy("c.course_id")
+      // .then((course) => {
+      //   // console.log(course);
+      //   console.log(stars);
+      //   return "work on";
+      // })
   ); 
   }
 
