@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-function find() {
+exports.findAll = () => {
   return db("courses as c")
     .leftJoin("users as u", "c.user_id", "u.user_id")
     .leftJoin("reviews as r", "c.course_id", "r.course_id")
@@ -15,7 +15,7 @@ function find() {
     .groupBy("c.course_id");
 }
 
-function findBy(filter) {
+exports.findBy = (filter)  => {
   return db("courses as c")
     .leftJoin("users as u", "c.user_id", "u.user_id")
     .leftJoin("reviews as r", "c.course_id", "r.course_id")
@@ -31,7 +31,8 @@ function findBy(filter) {
     )
     .where("*", filter);
 }
-function findById(id) {
+
+exports.findById = (id) => {
   return db("courses as c")
     .leftJoin("users as u", "c.user_id", "u.user_id")
     .leftJoin("reviews as r", "c.course_id", "r.course_id")
@@ -48,24 +49,17 @@ function findById(id) {
     .where("c.course_id", id);
 }
 
-async function insert(newCourse) {
+exports.insert = async (newCourse) => {
   const [id] = await db("courses").insert(newCourse);
   return findById(id);
 }
 
-async function update(id, changes) {
+exports.update = async(id, changes) => {
   await db("courses as c").where("c.course_id", id).update(changes);
   return findById(id);
 }
 
-async function remove(id) {
+exports.remove = (id) => {
   return db("courses as c").where("c.course_id", id).del();
 }
 
-module.exports = {
-  find,
-  findById,
-  insert,
-  update,
-  remove,
-};

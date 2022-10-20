@@ -1,22 +1,18 @@
-const express = require("express");
-const model = require("./users-model");
+const users = require("../models/userModel");
 
-const router = express.Router();
-
-router.get("/", async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const users = await model.find()
+    const users = await users.findAll();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: `${error}` });
   }
-});
+};
 
-router.get("/:id", async (req, res) => {
+exports.getUserById = async (req, res) => {
   let { id } = req.params;
-  //   console.log(filter);
   try {
-    const [user] = await model.findById(id);
+    const [user] = await users.findById(id);
     if (!user || user.length === 0) {
       res.status(404).json({ message: `not found this user ${id}` });
       return;
@@ -25,12 +21,12 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: `${error}` });
   }
-});
+};
 
-router.post("/", async (req, res) => {
+exports.insertUser = async (req, res) => {
   let { body } = req;
   try {
-    const [user] = await model.insert(body);
+    const [user] = await users.insert(body);
     if (!user) {
       res.status(404).json({ message: "you missing same thing" });
     }
@@ -39,16 +35,13 @@ router.post("/", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: `insternal server error` });
   }
-});
+};
 
-router.put("/:id", async (req, res) => {
-  const {
-    params: { id },
-    body,
-  } = req;
+exports.updateUser = async (req, res) => {
+  const {params: { id },body} = req;
 
   try {
-    const [user] = await model.update(id, body);
+    const [user] = await users.update(id, body);
 
     if (!user) {
       res.status(404).json({ message: "could not update that user" });
@@ -58,17 +51,15 @@ router.put("/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: `insternal server error` });
   }
-});
+};
 
-router.delete("/:id", async (req, res) => {
+exports.deleteUser = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [user] = await model.remove(id);
+    const [user] = await users.remove(id);
     res.status(200).json({ message: `user deleted ${user}` });
   } catch (error) {
     res.status(500).json({ message: `insternal server error` });
   }
-});
-
-module.exports = router;
+};
