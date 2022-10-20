@@ -58,4 +58,14 @@ async function update(id, changes) {
   return findById(id);
 }
 
-module.exports = { find, findById, insert, update };
+async function remove(id) {
+  return db("courses as c").where("c.course_id", id).del();
+}
+
+module.exports = {
+  find,
+  findById,
+  insert,
+  update,
+  remove,
+};

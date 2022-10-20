@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.patch("/", async (req, res) => {
   let newCourse = req.body;
   try {
     const [course] = await model.insert(newCourse);
@@ -39,7 +39,17 @@ router.put("/:id", async(req,res) => {
         res.status(200).json(course)
     } catch (error) {
         res.status(500).json({ message: "some thing wrong" });
-    }
+    } 
 })
 
+router.delete("/:id", async(req,res) => { 
+  const {id} = req.params;
+  try {
+    const course_id = await model.remove(+id); 
+    console.log(course_id);
+    res.status(200).json({message:`successfull delted ${course_id}`})
+  } catch (error) {
+    res.status(500).json({ message: `some thing wrong ${error}`});
+  }
+})
 module.exports = router;

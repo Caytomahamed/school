@@ -22,8 +22,8 @@ exports.up = function (knex) {
           .unsigned()
           .references("role_id")
           .inTable("roles")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT");
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE");
     })
     .createTable("courses", (tbl) => {
       tbl.increments("course_id"),
@@ -39,8 +39,8 @@ exports.up = function (knex) {
           .notNullable()
           .references("user_id")
           .inTable("users")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT");
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE");
     })
     .createTable("chapters", (tbl) => {
       tbl.increments("chapter_id"),
@@ -50,8 +50,8 @@ exports.up = function (knex) {
           .notNullable()
           .references("course_id")
           .inTable("courses")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT");
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE");
     })
     .createTable("videos", (tbl) => {
       tbl.increments("video_id"),
@@ -62,15 +62,15 @@ exports.up = function (knex) {
           .notNullable()
           .references("course_id")
           .inTable("courses")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT");
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE");
       tbl
         .integer("chapter_id")
         .notNullable()
         .references("chapter_id")
         .inTable("chapters")
-        .onUpdate("RESTRICT")
-        .onDelete("RESTRICT");
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
     })
     .createTable("reviews", (tbl) => {
       tbl.increments("review_id"),
@@ -81,15 +81,15 @@ exports.up = function (knex) {
           .notNullable()
           .references("user_id")
           .inTable("users")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT"),
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE"),
         tbl
           .integer("course_id")
           .notNullable()
           .references("course_id")
           .inTable("courses")
-          .onUpdate("RESTRICT")
-          .onDelete("RESTRICT");
+          .onUpdate("CASCADE")
+          .onDelete("CASCADE");
     });
 };
 
