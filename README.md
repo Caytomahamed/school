@@ -22,16 +22,19 @@
 
 ### Get Courses by ID
 
-    ```
-    {
-        course_title: "The Complete JavaScript",
-        description: "The modern JavaScript course...",
-        price: 89.9,
-        duration: 20,
-        thumnail: "thumnail.jpg",
-        username: "mahamed"
-    },
+`localhost:9000/api/courses/:id`
+
+### Post Course 
+
+```
+{
+    course_title: "The Complete JavaScript",
+    description: "The modern JavaScript course...",
+    price: 89.9,
+    duration: 20,
+    thumnail: "thumnail.jpg",
+    username: "mahamed"
+},
 
 ```
 
-```

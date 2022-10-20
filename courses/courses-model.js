@@ -1,80 +1,61 @@
 const db = require("../database/dbConfig");
 
 function find() {
-  return db()
+  return db("courses as c")
+    .leftJoin("users as u", "c.user_id", "u.user_id")
+    .leftJoin("reviews as r", "c.course_id", "r.course_id")
     .select(
       "course_title",
       "description",
       "price",
       "duration",
       "thumnail",
-      "username",
+      "username"
     )
-    .from("courses as c")
-    .join("users as u", "c.user_id", "u.user_id")
-    .join("reviews as r", "c.course_id", "r.course_id")
     .groupBy("c.course_id");
 }
 
-module.exports = { find };
+function findBy(filter) {
+  return db("courses as c")
+    .leftJoin("users as u", "c.user_id", "u.user_id")
+    .leftJoin("reviews as r", "c.course_id", "r.course_id")
+    .groupBy("c.course_id")
+    .select(
+      "c.course_id",
+      "course_title",
+      "description",
+      "price",
+      "duration",
+      "thumnail",
+      "username"
+    )
+    .where("*", filter);
+}
+function findById(id) {
+  return db("courses as c")
+    .leftJoin("users as u", "c.user_id", "u.user_id")
+    .leftJoin("reviews as r", "c.course_id", "r.course_id")
+    .select(
+      "c.course_id",
+      "course_title",
+      "description",
+      "price",
+      "duration",
+      "thumnail",
+      "username"
+    )
+    .groupBy("c.course_id")
+    .where("c.course_id", id);
+}
 
-// let result = await db
-//   .select(
-//     "c.course_id",
-//     "c.course_title",
-//     "c.description",
-//     "u.user_id",
-//     "u.username",
-//     "u.image",
-//     "ch.chapter_id",
-//     "ch.chapter_title",
-//     "v.video_id",
-//     "v.video_title",
-//     "v.video",
-//     "r.review_id",
-//     "r.review_star",
-//     "r.commnet",
-//     "ur.user_id as reviewer_id",
-//     "ur.username as reviewer_name",
-//     "ur.image as reviewer_image"
-//   )
-//   .from("chapters as ch")
-//   .join("videos as v", "ch.chapter_id", "v.chapter_id")
-//   .join("courses as c", "c.course_id", "c.course_id")
-//   .join("users as u", "u.user_id", "c.user_id")
-//   .join("reviews as r ", "r.course_id", "c.course_id")
-//   .join("users as ur ", "u.user_id", "r.user_id");
-// // .then((chapters) => {
-// //   let videoIsaNewchapter = true;
-// //   chapters.map((ch) => {
-// //     for (let i = 0; i < result.length; i++) {
-// //       const element = result[i];
-// //       if (element?._id === ch.chapter_id) {
-// //         videoIsaNewchapter = false;
-// //         element.videos.push({
-// //           _id: ch.video_id,
-// //           title: ch.video_title,
-// //           video: ch.video,
-// //         });
-// //       }
-// //     }
+async function insert(newCourse) {
+  const [id] = await db("courses").insert(newCourse);
+  return findById(id);
+}
 
-// //     videoIsaNewchapter &&
-// //       result.push({
-// //         _id:ch
-// //         chapters: [
-// //           {
-// //             _id: ch.chapter_id,
-// //             titile: ch.chapter_title,
-// //             videos: [
-// //               {
-// //                 _id: ch.video_id,
-// //                 title: ch.video_title,
-// //                 video: ch.video,
-// //               },
-// //             ],
-// //           },
-// //         ],
-// //       });
-// //   });
-// // });
+async function update(id, changes) {
+  await db("courses as c").where("c.course_id", id).update(changes);
+  return findById(id);
+}
+
+module.exports = { find, findById, insert, update };
