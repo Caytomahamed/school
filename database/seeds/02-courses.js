@@ -12,6 +12,8 @@ exports.seed = async function (knex) {
         "The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!",
       thumnail:
         "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      price: 89.9,
+      duration:20,
       create_at: "2022-01-01",
       update_at: "2022-10-10",
       user_id: 2,
@@ -22,6 +24,8 @@ exports.seed = async function (knex) {
         "Use React Native and your React knowledge to build native iOS and Android Apps - incl. Push Notifications, Hooks, Redux",
       thumnail:
         "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      price: 89.9,
+      duration:55,
       create_at: "2022-01-01",
       update_at: "2022-10-10",
       user_id: 2,

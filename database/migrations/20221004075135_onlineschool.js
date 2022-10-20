@@ -30,6 +30,8 @@ exports.up = function (knex) {
         tbl.string("course_title", 128).notNullable(),
         tbl.string("description").notNullable(),
         tbl.string("thumnail").notNullable(),
+        tbl.integer("price").notNullable(),
+        tbl.integer("duration").notNullable(),
         tbl.string("create_at").notNullable(),
         tbl.string("update_at"),
         tbl

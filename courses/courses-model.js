@@ -1,26 +1,20 @@
 const db = require("../database/dbConfig");
 
 function find() {
-  return (
-    db()
-      // .select(
-      //   "course_title",
-      //   "description",
-      //   "thumnail",
-      //   "username",
-      //   "review_stars"
-      // )
-      .from("courses as c")
-      .join("users as u", "c.user_id", "u.user_id")
-      .join("reviews as r", "c.course_id", "r.course_id")
-      .groupBy("c.course_id")
-      // .then((course) => {
-      //   // console.log(course);
-      //   console.log(stars);
-      //   return "work on";
-      // })
-  ); 
-  }
+  return db()
+    .select(
+      "course_title",
+      "description",
+      "price",
+      "duration",
+      "thumnail",
+      "username",
+    )
+    .from("courses as c")
+    .join("users as u", "c.user_id", "u.user_id")
+    .join("reviews as r", "c.course_id", "r.course_id")
+    .groupBy("c.course_id");
+}
 
 module.exports = { find };
 
