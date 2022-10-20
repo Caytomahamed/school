@@ -5,7 +5,8 @@
 ## Course End point 
 
 ### Get course
-`localhost:9000/api/courses`
+
+####`localhost:9000/api/courses`
 
 ```
     {
