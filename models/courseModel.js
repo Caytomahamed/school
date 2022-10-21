@@ -33,9 +33,9 @@ exports.findBy = (filter)  => {
 }
 
 exports.findById = (id) => {
-  return db("courses as c")
+  return db("cour ses as c")
     .leftJoin("users as u", "c.user_id", "u.user_id")
-    .leftJoin("reviews as r", "c.course_id", "r.course_id")
+    .leftJoin("reviews as r", "c.course_id", "r.course_id") 
     .select(
       "c.course_id",
       "course_title",

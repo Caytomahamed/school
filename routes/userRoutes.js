@@ -1,6 +1,6 @@
 const express = require("express");
 const userController = require("../controllers/userController");
-console.log(userController);
+
 const router = express.Router();
 
 router
@@ -15,3 +15,4 @@ router
       .delete(userController.deleteUser);
 
 module.exports = router;
+ 
