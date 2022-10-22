@@ -67,7 +67,7 @@ exports.insert = async(user)  => {
     create_user_id = user_id;
   });
 
-  return findById(create_user_id);
+  return this.findById(create_user_id);
 }
 
 exports.update = (id, change)  =>{

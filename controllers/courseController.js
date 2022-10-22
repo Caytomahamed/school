@@ -10,7 +10,7 @@ exports.getAllCourses = async (req, res) => {
 };
 
 exports.getCourse = async (req, res) => {
-  let { id }  = req.params;
+  let { id }  = req.params; 
   try {
     const [course] = await courses.findById(+id);
     res.status(200).json(course);
