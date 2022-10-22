@@ -1,62 +1,46 @@
 const courses = require("../models/courseModel");
+const catchAsyn = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
-exports.getAllCourses = async (req, res) => {
-  try {
-    const allCourses = await courses.findAll();
-    res.status(200).json({
-      status: "success",
-      data: {
-        data: allCourses,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "some thing wrong" });
-  }
-};
+exports.getAllCourses = catchAsyn(async (req, res,next) => {
+  const allCourses = await courses.findAll();
+  res.status(200).json({
+    status: "success",
+    reusult: allCourses.length,
+    data: { 
+      courses: allCourses,
+    },
+  });
+});
 
-exports.getCourse = async (req, res) => {
+exports.getCourse = catchAsyn(async (req, res,next) => {
   let { id } = req.params;
-  try {
-    const [course] = await courses.findById(+id);
-    res.status(200).json(course);
-  } catch (error) {
-    res.status(500).json({ message: "some thing wrong" });
+  const [course] = await courses.findById(+id);
+  if(!course) {
+   return next(new AppError("No course found with that ID",404));
   }
-};
+  res.status(200).json({
+    status: "success",
+    data: {
+      course: course,
+    },
+  });
+});
 
-exports.insertCourse = async (req, res) => {
+exports.insertCourse = catchAsyn(async (req, res,next) => {
   let newCourse = req.body;
-  console.log(newCourse);
-  try {
-    const [course] = await courses.insert(newCourse);
-    console.log(course);
-    res.status(201).json(course);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "some thing wrong" });
-  }
-};
+  const [course] = await courses.insert(newCourse);
+  res.status(201).json(course);
+});
 
-exports.updateCourse = async (req, res) => {
-  let {
-    params: { id },
-    body,
-  } = req;
-  try {
-    const [course] = await courses.update(+id, body);
-    res.status(200).json(course);
-  } catch (error) {
-    res.status(500).json({ message: "some thing wrong" });
-  }
-};
+exports.updateCourse =  catchAsyn(async (req, res,next) => {
+  let {params: { id },body} = req;
+  const [course] = await courses.update(+id, body);
+  res.status(200).json(course);
+});
 
-exports.deleteCourse = async (req, res) => {
+exports.deleteCourse = catchAsyn(async (req, res,next) => {
   const { id } = req.params;
-  try {
-    const course_id = await courses.remove(+id);
-    console.log(course_id);
-    res.status(200).json({ message: `successfull delted ${course_id}` });
-  } catch (error) {
-    res.status(500).json({ message: `some thing wrong ${error}` });
-  }
-};
+  const course_id = await courses.remove(+id);
+  res.status(200).json({ message: `successfull delted ${course_id}` });
+});
