@@ -1,39 +1,47 @@
-const courses = require("../models/courseModel")
+const courses = require("../models/courseModel");
 
 exports.getAllCourses = async (req, res) => {
   try {
-    const users = await courses.findAll();
-    res.status(200).json(users);
+    const allCourses = await courses.findAll();
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: allCourses,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: "some thing wrong" });
   }
 };
 
 exports.getCourse = async (req, res) => {
-  let { id }  = req.params; 
+  let { id } = req.params;
   try {
     const [course] = await courses.findById(+id);
     res.status(200).json(course);
   } catch (error) {
     res.status(500).json({ message: "some thing wrong" });
   }
-}; 
+};
 
 exports.insertCourse = async (req, res) => {
   let newCourse = req.body;
-  console.log(newCourse); 
+  console.log(newCourse);
   try {
     const [course] = await courses.insert(newCourse);
     console.log(course);
     res.status(201).json(course);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "some thing wrong" });  
+    res.status(500).json({ message: "some thing wrong" });
   }
 };
 
 exports.updateCourse = async (req, res) => {
-  let {params: { id },body} = req;
+  let {
+    params: { id },
+    body,
+  } = req;
   try {
     const [course] = await courses.update(+id, body);
     res.status(200).json(course);

@@ -1,12 +1,6 @@
-const express = require("express");
-const server = express();
-const userRouter = require("./routes/userRoutes");
-const courseRouter = require("./routes/courseRoutes")
+const server = require("./app.js");
+require("dotenv").config();
 
-server.use(express.json());
+const port = process.env.PORT || 8000;
 
-server.use("/api/users", userRouter);
-server.use("/api/courses", courseRouter);
- 
-module.exports = server; 
- 
+server.listen(port, () => console.log(`server run on **9000***`));
