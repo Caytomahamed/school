@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-exports.findAll = async() => {
+exports.findAll = async function(){
   return db("users as u")
     .join("roles as r", "u.role_id", "r.role_id")
     .select(
@@ -14,7 +14,7 @@ exports.findAll = async() => {
     )
 }
 
-exports.findBy = (filter) => {
+exports.findBy = function(filter){
   return db("users")
     .join("roles", "users.role_id", "roles.role_id")
     .select(
@@ -29,7 +29,7 @@ exports.findBy = (filter) => {
     .where(filter);
 }
 
-exports.findById =(user_id) => {
+exports.findById = function(userId) {
   return db("users")
     .join("roles", "users.role_id", "roles.role_id")
     .select(
@@ -41,40 +41,40 @@ exports.findById =(user_id) => {
       "update_at",
       "roles.role_name"
     )
-    .where("users.user_id", user_id);
+    .where("users.user_id", userId);
 }
 
 exports.insert = async(user)  => {
-  let create_user_id;
+  let createUserId;
   await db.transaction(async (trx) => {
-    let role_id_to_use;
+    let roleIdToUse;
     const [role] = await trx("roles").where("roles.role_name", role_name);
     if (role) {
-      role_id_to_use = role.role_id;
+      roleIdToUse = role.role_id;
     }
 
-    const [user_id] = await trx("users").insert({
-      username:user.username,
-      email:user.email,
-      password:user.password,
-      image:user.image,
-      location:user.location,
-      create_at:user.create_at,
-      update_at:user.update,
-      role_id: role_id_to_use, 
+    const [userId] = await trx('users').insert({
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      image: user.image,
+      location: user.location,
+      create_at: user.create_at,
+      update_at: user.update,
+      role_id: roleIdToUse,
     });
 
-    create_user_id = user_id;
+    createUserId = userId;
   });
 
-  return this.findById(create_user_id);
+  return this.findById(createUserId);
 }
 
-exports.update = (id, change)  =>{
+exports.update = function(id, change){
   return db("users").update("*", change).where("users.user_id", id);
 }
 
-exports.remove = (id) => {
+exports.remove = function(id){
   return db("users").where("users.user_id", id);
 }
 

@@ -1,6 +1,6 @@
 const db = require('../database/dbConfig');
 
-exports.findAll = () => {
+exports.findAll = function() {
   return db('courses as c')
     .leftJoin('users as u', 'c.user_id', 'u.user_id')
     .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
@@ -15,7 +15,7 @@ exports.findAll = () => {
     .groupBy('c.course_id');
 }
 
-exports.findBy = (filter)  => {
+exports.findBy = function(filter){
   return db('courses as c')
     .leftJoin('users as u', 'c.user_id', 'u.user_id')
     .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
@@ -32,7 +32,7 @@ exports.findBy = (filter)  => {
     .where('*', filter);
 }
 
-exports.findById = (id) => {
+exports.findById = function(id){
   return db('courses as c')
     .leftJoin('users as u', 'c.user_id', 'u.user_id')
     .leftJoin('reviews as r', 'c.course_id', 'r.course_id') 
@@ -49,9 +49,8 @@ exports.findById = (id) => {
     .where('c.course_id', id);
 }
 
-exports.insert = async (newCourse) => {
+exports.insert = async function(newCourse) {
   const [id] = await db('courses').insert(newCourse);
-  console.log(id);
   return this.findById(id);
 }
 
@@ -60,7 +59,7 @@ exports.update = async(id, changes) => {
   return this.findById(id);
 }
 
-exports.remove = (id) => {
+exports.remove = function(id){
   return db('courses as c').where('c.course_id', id).del();
 }
 
