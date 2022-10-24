@@ -13,6 +13,7 @@ exports.getAllUsers = catchAsync(async (req, res,next) => {
 exports.getUserById = catchAsync(async (req, res,next) => {
   const { id } = req.params;
   const [user] = await users.findById(id);
+  console.log(user);
   if (!user) {
     return next(new AppError('No user found with that ID',404));
   }
