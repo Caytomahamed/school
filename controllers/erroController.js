@@ -28,12 +28,13 @@ const sentErrorProd = (err, res) => {
 };
 
 module.exports = (err, req, res, next) => {
+  console.log(typeof process.env.NODE_ENV, `$process.env.NODE_ENV1}` === 'production');
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
   if (process.env.NODE_ENV === 'development') {
     sentErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    console.log("hello");
+    console.log('hello');
     sentErrorProd(err, res);
   }
 };
