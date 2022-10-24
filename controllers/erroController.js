@@ -1,4 +1,4 @@
-const sentErrorDev = function (err, res) {
+const sentErrorDev = (err, res) => {
   return res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -7,7 +7,7 @@ const sentErrorDev = function (err, res) {
   });
 };
 
-const sentErrorProd = function (err, res) {
+const sentErrorProd = (err, res) => {
   // errors we trusted
   if (err.isOperational) {  
      res.status(err.statusCode).json({

@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-exports.findAll = async function(){
+exports.findAll = async() =>{
   return db("users as u")
     .join("roles as r", "u.role_id", "r.role_id")
     .select(
@@ -14,7 +14,7 @@ exports.findAll = async function(){
     )
 }
 
-exports.findBy = function(filter){
+exports.findBy = (filter) => {
   return db("users")
     .join("roles", "users.role_id", "roles.role_id")
     .select(
@@ -29,7 +29,7 @@ exports.findBy = function(filter){
     .where(filter);
 }
 
-exports.findById = function(userId) {
+exports.findById = (userId) => {
   return db("users")
     .join("roles", "users.role_id", "roles.role_id")
     .select(
@@ -44,7 +44,7 @@ exports.findById = function(userId) {
     .where("users.user_id", userId);
 }
 
-exports.insert = async(user)  => {
+exports.insert = async(user) => {
   let createUserId;
   await db.transaction(async (trx) => {
     let roleIdToUse;
@@ -70,11 +70,11 @@ exports.insert = async(user)  => {
   return this.findById(createUserId);
 }
 
-exports.update = function(id, change){
+exports.update = (id, change) =>{
   return db("users").update("*", change).where("users.user_id", id);
 }
 
-exports.remove = function(id){
+exports.remove = (id) => {
   return db("users").where("users.user_id", id);
 }
 
