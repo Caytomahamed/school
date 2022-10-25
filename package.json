@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "online school course",
   "main": "server.js",
-  "scripts": {
+   "scripts": {
     "dev": "nodemon server.js",
     "start:prod": "set NODE_ENV=production && nodemon server.js",
     "rollback": "knex migrate:rollback",
