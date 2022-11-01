@@ -9,9 +9,9 @@ const globalErroHandler = require('./controllers/erroController');
 const app = express();
 app.use(express.json());
 
-app.use('/api/users', userRouter);
-app.use('/api/courses', courseRouter);
-app.use('/api/chapters', chaptersRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/courses', courseRouter);
+app.use('/api/v1/chapters', chaptersRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
