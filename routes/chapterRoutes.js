@@ -5,11 +5,14 @@ const router = express.Router({mergeParams : true});
 
 router
   .route('/')
+  .post(chapterController.insertChapter)
   .get(chapterController.getAll)
-  .get(chapterController.getAll);
+  
 router
      .route('/:id')
-     .get(chapterController.getById);
+     .get(chapterController.getById)
+     .patch(chapterController.updateChapter)
+     .delete(chapterController.deleteChapter)
      
      
 module.exports = router; 

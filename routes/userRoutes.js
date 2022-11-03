@@ -1,7 +1,11 @@
 const express = require("express");
 const userController = require("../controllers/userController");
+const courseRoute = require("./courseRoutes");
 
 const router = express.Router();
+
+//GET : /:userID/courses
+router.use("/:userId/courses",courseRoute);
 
 router
       .route("/")
