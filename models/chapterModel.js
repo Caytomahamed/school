@@ -1,6 +1,6 @@
 const db = require('../database/dbConfig');
 
-const findAll = (id) => {
+const findAll = () => {
   return db('chapters as ch')
     .join('courses as c', 'c.course_id', 'ch.course_id')
     .select('chapter_id', 'chapter_title');

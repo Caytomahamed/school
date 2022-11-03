@@ -8,9 +8,9 @@ const router = express.Router({ mergeParams: true });
 router.use("/:courseId/chapters", chapterRoutes);
 
 router
-    .route("/")
-    .get(courseController.getAllCourses)
-    .post(courseController.insertCourse);
+  .route('/')
+  .post(courseController.insertCourse)
+  .get(courseController.getAllCourses);
     
 router
     .route("/:id")

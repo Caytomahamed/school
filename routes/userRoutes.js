@@ -5,7 +5,7 @@ const courseRoute = require("./courseRoutes");
 const router = express.Router();
 
 //GET : /:userID/courses
-router.use("/:userId/courses",courseRoute);
+router.use("/:id/courses",courseRoute);
 
 router
       .route("/")

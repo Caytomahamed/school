@@ -1,31 +1,10 @@
 const db = require('../database/dbConfig');
 
-const find = () => {
-   return db('courses as c')
-     .leftJoin('users as u', 'c.user_id', 'u.user_id')
-     .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
-     .select(
-       'course_title',
-       'description',
-       'price',
-       'duration',
-       'thumnail',
-       'username'
-     )
-     .groupBy('c.course_id');
-}
-
-exports.findAll = (id) => {
-  return id ? find() : find(+id).where('c.course_id', id);
-};
-
-exports.findBy = (filter) => {
+const courseSelector = () => {
   return db('courses as c')
     .leftJoin('users as u', 'c.user_id', 'u.user_id')
     .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
-    .groupBy('c.course_id')
     .select(
-      'c.course_id',
       'course_title',
       'description',
       'price',
@@ -33,7 +12,14 @@ exports.findBy = (filter) => {
       'thumnail',
       'username'
     )
-    .where('*', filter);
+    .groupBy('c.course_id');
+};
+
+exports.find = (id) => {
+  return id ? courseSelector().where('c.user_id', +id) : courseSelector();
+};
+exports.findById = (id) => {
+  return courseSelector().where('c.course_id', +id);
 };
 
 exports.insert = async (newCourse) => {
