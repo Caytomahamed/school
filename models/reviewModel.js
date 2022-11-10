@@ -1,5 +1,5 @@
 const db = require(".././database/dbConfig");
 
-exports.findAll= () => {
+exports.find= () => {
     return db("reviews")
 }

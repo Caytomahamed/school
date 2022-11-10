@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-exports.findAll = async() =>{
+exports.find = async() =>{
   return db("users as u")
     .join("roles as r", "u.role_id", "r.role_id")
     .select(
@@ -44,7 +44,7 @@ exports.findById = (userId) => {
     .where("users.user_id", userId);
 }
 
-exports.insert = async(user) => {
+exports.create = async(user) => {
   let createUserId;
   await db.transaction(async (trx) => {
     let roleIdToUse;
@@ -70,11 +70,13 @@ exports.insert = async(user) => {
   return this.findById(createUserId);
 }
 
-exports.update = (id, change) =>{
-  return db("users").update("*", change).where("users.user_id", id);
+exports.findByIdandUpdate = async (id, change) => {
+  await db("users").update("*", change).where("users.user_id", id);
+  return this.findById(id)
 }
 
-exports.remove = (id) => {
+exports.findByIdandDelete = (id) => {
   return db("users").where("users.user_id", id);
 }
 
+ 

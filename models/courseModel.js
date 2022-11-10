@@ -22,16 +22,16 @@ exports.findById = (id) => {
   return courseSelector().where('c.course_id', +id);
 };
 
-exports.insert = async (newCourse) => {
+exports.create = async (newCourse) => {
   const [id] = await db('courses').insert(newCourse);
   return this.findById(id);
 };
 
-exports.update = async (id, changes) => {
+exports.findByIdandUpdate = async (id, changes) => {
   await db('courses as c').where('c.course_id', id).update(changes);
   return this.findById(id);
 };
 
-exports.remove = (id) => {
+exports.findByIdandDelete = (id) => {
   return db('courses as c').where('c.course_id', id).del();
 };

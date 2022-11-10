@@ -1,25 +1,34 @@
 const db = require('../database/dbConfig');
 
-const findAll = () => {
+exports.find = (id) => {
+  if (id) {
+    return db('chapters as ch')
+      .join('courses as c', 'c.course_id', 'ch.course_id')
+      .select('chapter_id', 'chapter_title')
+      .where('c.course_id', id);
+  }
   return db('chapters as ch')
     .join('courses as c', 'c.course_id', 'ch.course_id')
     .select('chapter_id', 'chapter_title');
 };
 
-exports.find = (id) => {
- return id ? findAll().where('c.course_id', id): findAll(); 
+exports.findById = (id) => {
+  return db('chapters as ch')
+    .join('courses as c', 'c.course_id', 'ch.course_id')
+    .select('chapter_id', 'chapter_title')
+    .where('ch.chapter_id', id);
 };
 
-exports.insert = async (chapter) => {
-  const [id] =  await db('chapters').insert(chapter);
-  return this.find(id)
+exports.create = async (chapter) => {
+  const [id] = await db('chapters').insert(chapter);
+  return this.findById(id);
 };
 
-exports.updateChapter = async (changes, id) => {
-  await db('chapters').where('chapters.chapter_id', id).update('*', changes);
-  return this.find(id)
+exports.findByIdandUpdate = async (id,changes) => {
+  await db('chapters as ch').where('ch.chapter_id', id).update(changes);
+  return this.findById(id);
 };
 
-exports.deleteChapter = (id) => {
+exports.findByIdandDelete = (id) => {
   return db('chapters').where('chapters.chapter_id', id).del();
 };

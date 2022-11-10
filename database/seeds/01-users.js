@@ -42,5 +42,27 @@ exports.seed = async function (knex) {
       update_at: "2022-10-03",
       role_id: 2,
     },
+    {
+      username: "farax",
+      email: "hamse@gmail.com",
+      password: 33333,
+      image:
+        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
+      location: "hargeisa",
+      create_at: "2022-10-01",
+      update_at: "2022-10-03",
+      role_id: 2,
+    },
+    {
+      username: "cumar",
+      email: "hamse@gmail.com",
+      password: 33333,
+      image:
+        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
+      location: "hargeisa",
+      create_at: "2022-10-01",
+      update_at: "2022-10-03",
+      role_id: 2,
+    },
   ]);
 };

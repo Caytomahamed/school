@@ -22,5 +22,37 @@ exports.seed = async function(knex) {
       chapter_title:"React native cli",
       course_id:2,
     },
+    {
+      chapter_title:"Array",
+      course_id:3,
+    },
+    {
+      chapter_title:"Functions",
+      course_id:3,
+    },
+    {
+      chapter_title:"classes ",
+      course_id:4,
+    },
+    {
+      chapter_title:"Interfaces",
+      course_id:4
+    },
+    {
+      chapter_title:"Objects",
+      course_id:5,
+    },
+    {
+      chapter_title:"Connect Database",
+      course_id:5,
+    },
+    {
+      chapter_title:"Date and time",
+      course_id:6,
+    },
+    {
+      chapter_title:"Geolocation",
+      course_id:6,
+    },
   ]);
 };

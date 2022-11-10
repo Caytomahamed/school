@@ -34,6 +34,62 @@ exports.seed = async function(knex) {
       user_id: 2,
       course_id: 2,
     },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 3,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 3,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 4,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 4,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 5,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 5,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 6,
+    },
+    {
+      review_stars: 5,
+      commnet:
+        "I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.",
+      user_id: 2,
+      course_id: 6,
+    },
   ]);
 };
 
