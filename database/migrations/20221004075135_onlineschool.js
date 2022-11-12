@@ -76,6 +76,7 @@ exports.up = function (knex) {
       tbl.increments("review_id"),
         tbl.string("review_stars").notNullable(),
         tbl.string("commnet"),
+        tbl.string("create_at"),
         tbl
           .integer("user_id")
           .notNullable()
