@@ -1,29 +1,35 @@
-const db = require('../database/dbConfig');
+const reader = require("../reader/handleReader");
+const videoReader = require("../reader/videoReader");
 
-const selector = () => {
-  return db('videos').select('video_title as title', 'video');
-};
 
 exports.find = id => {
-  return id ? selector().where('chapter_id', id) : selector();
+  return videoReader.read(id)
 };
 
-exports.findById = id => {
-  return db('videos as v')
-    .select('video_title', 'video')
-    .where('v.video_id', id);
+exports.findById = id => videoReader.readById(id)
+
+exports.create = video => {
+  return reader.createOne({
+    table:"videos",
+    newOne:video,
+    getById:this.findById
+  })
 };
 
-exports.create = async body => {
-  const [id] = await db('videos').insert(body);
-  return this.findById(id);
-};
-
-exports.findByIdandUpdate = async (id, change) => {
-  await db('videos as v').where('v.video_id', id).update(change);
-  return this.findById(id);
+exports.findByIdandUpdate = (id, changes) => {
+  return reader.updateOne({
+    table:"videos as v",
+    condition:"v.video_id",
+    getById: this.findById,
+    changes,
+    id
+  })
 };
 
 exports.findByIdandDelete = id => {
-  return db('videos as v').where('v.video_id', id).del();
+  return reader.deleteOne({
+    table: 'videos as v',
+    condition: 'v.video_id',
+    id,
+  });
 };

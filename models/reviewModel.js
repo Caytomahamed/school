@@ -1,32 +1,35 @@
-const db = require('.././database/dbConfig');
+const reader = require('../reader/handleReader');
+const reviewReader = require('../reader/reviewReader');
 
-const selecter = () => {
-  return db('reviews as r')
-    .join('users as u', 'u.user_id', 'r.user_id')
-    .select('username', 'image', 'commnet', 'review_stars', 'r.create_at');
+exports.find = id => {
+  return reviewReader.read(id);
 };
 
-exports.find = (id) => {
-    return id ? selecter().where("course_id",id) : selecter();
+exports.findById = id => reviewReader.readById(id);
+
+exports.create = review => {
+  return reader.createOne({
+    table: 'reviews',
+    newOne: review,
+    getById: this,
+    findById,
+  });
 };
 
-exports.findById = id => {
-  return db('reviews as r')
-    .join('users as u', 'u.user_id', 'r.user_id')
-    .select('username', 'image', 'commnet', 'review_stars', 'r.create_at')
-    .where('review_id', id);
-};
-
-exports.create = async body => {
-  const [id] = await db('reviews').insert(body);
-  return this.findById(id);
-};
-
-exports.findByIdandUpdate = async (id, change) => {
-  await db('reviews as r').where('r.review_id', id).update(change);
-  return this.findById(id);
+exports.findByIdandUpdate = (id, changes) => {
+  return reader.updateOne({
+    tbale: 'reviews as r',
+    condition: 'r.review_id',
+    getById: this.findById,
+    changes,
+    id,
+  });
 };
 
 exports.findByIdandDelete = id => {
-  return db('reviews as r').where('r.review_id', id).del();
+  return reader.deleteOne({
+    table: 'reviews as r',
+    condition: 'r.review_id',
+    id,
+  });
 };

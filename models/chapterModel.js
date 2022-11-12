@@ -1,34 +1,34 @@
-const db = require('../database/dbConfig');
+const reader = require('../reader/handleReader');
+const chapterReater = require('../reader/chapterReader');
 
-exports.find = (id) => {
-  if (id) {
-    return db('chapters as ch')
-      .join('courses as c', 'c.course_id', 'ch.course_id')
-      .select('chapter_id', 'chapter_title')
-      .where('c.course_id', id);
-  }
-  return db('chapters as ch')
-    .join('courses as c', 'c.course_id', 'ch.course_id')
-    .select('chapter_id', 'chapter_title');
+exports.find = id => {
+  return chapterReater.read(id);
 };
 
-exports.findById = (id) => {
-  return db('chapters as ch')
-    .join('courses as c', 'c.course_id', 'ch.course_id')
-    .select('chapter_id', 'chapter_title')
-    .where('ch.chapter_id', id);
+exports.findById = id => chapterReater.readById(id);
+
+exports.create = chapter => {
+  return reader.createOne({
+    table: 'chapters',
+    newOne: chapter,
+    getById: this.findById,
+  });
 };
 
-exports.create = async (chapter) => {
-  const [id] = await db('chapters').insert(chapter);
-  return this.findById(id);
+exports.findByIdandUpdate = (id, changes) => {
+  return reader.updateOne({
+    table: 'chapters as ch',
+    condition: 'ch.chapter_id',
+    getById: this.findById,
+    id,
+    changes,
+  });
 };
 
-exports.findByIdandUpdate = async (id,changes) => {
-  await db('chapters as ch').where('ch.chapter_id', id).update(changes);
-  return this.findById(id);
-};
-
-exports.findByIdandDelete = (id) => {
-  return db('chapters').where('chapters.chapter_id', id).del();
+exports.findByIdandDelete = id => {
+  return reader.deleteOne({
+    table: 'chapters as ch',
+    condition: 'ch.chapter_id',
+    id,
+  });
 };

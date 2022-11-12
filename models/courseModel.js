@@ -1,37 +1,34 @@
-const db = require('../database/dbConfig');
+const reader = require('../reader/handleReader');
+const courseReader = require('../reader/courseReader');
 
-const courseSelector = () => {
-  return db('courses as c')
-    .leftJoin('users as u', 'c.user_id', 'u.user_id')
-    .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
-    .select(
-      'course_title',
-      'description',
-      'price',
-      'duration',
-      'thumnail',
-      'username'
-    )
-    .groupBy('c.course_id');
+exports.find = id => {
+  return courseReader.read(id);
 };
 
-exports.find = (id) => {
-  return id ? courseSelector().where('c.user_id', +id) : courseSelector();
-};
-exports.findById = (id) => {
-  return courseSelector().where('c.course_id', +id);
+exports.findById = id => courseReader.readById(id);
+
+exports.create = course => {
+  return reader.createOne({
+    table: 'courses',
+    newOne: course,
+    getById: this.findById,
+  });
 };
 
-exports.create = async (newCourse) => {
-  const [id] = await db('courses').insert(newCourse);
-  return this.findById(id);
+exports.findByIdandUpdate = (id, changes) => {
+  return reader.updateOne({
+    table: 'courses as c',
+    condition: 'c.course_id',
+    getById: this.findById,
+    changes,
+    id,
+  });
 };
 
-exports.findByIdandUpdate = async (id, changes) => {
-  await db('courses as c').where('c.course_id', id).update(changes);
-  return this.findById(id);
-};
-
-exports.findByIdandDelete = (id) => {
-  return db('courses as c').where('c.course_id', id).del();
+exports.findByIdandDelete = id => {
+  return reader.deleteOne({
+    table: 'courses as c',
+    condition: 'c.course_id',
+    id,
+  });
 };
