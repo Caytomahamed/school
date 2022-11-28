@@ -1,7 +1,7 @@
 const db = require('../database/dbConfig');
 
-const select = async() => {
-  return await db('courses as c')
+const select =  () => {
+  return db('courses as c')
     .leftJoin('users as u', 'c.user_id', 'u.user_id')
     .leftJoin('reviews as r', 'c.course_id', 'r.course_id')
     .select(
@@ -12,6 +12,8 @@ const select = async() => {
       'thumnail',
       'username'
     )
+    .avg('r.review_stars as averageReviews')
+    .count("r.review_id as numberOfreviewers")
     .groupBy('c.course_id');
 };
 
@@ -23,6 +25,6 @@ exports.read = id => {
   return id ? courseByUser(id) : select();
 };
 
-exports.readById = id => {
-  return select().where('c.course_id', id);
+exports.readById =  async id => {
+  return await select().where('c.course_id', id);
 };

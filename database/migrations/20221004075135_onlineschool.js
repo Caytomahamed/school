@@ -37,6 +37,7 @@ exports.up = function (knex) {
         tbl
           .integer('user_id')
           .notNullable()
+          .unsigned()
           .references('user_id')
           .inTable('users')
           .onUpdate('CASCADE')
@@ -48,6 +49,7 @@ exports.up = function (knex) {
         tbl
           .integer('course_id')
           .notNullable()
+          .unsigned()
           .references('course_id')
           .inTable('courses')
           .onUpdate('CASCADE')
@@ -60,6 +62,7 @@ exports.up = function (knex) {
         tbl
           .integer('course_id')
           .notNullable()
+          .unsigned()
           .references('course_id')
           .inTable('courses')
           .onUpdate('CASCADE')
@@ -67,6 +70,7 @@ exports.up = function (knex) {
       tbl
         .integer('chapter_id')
         .notNullable()
+        .unsigned()
         .references('chapter_id')
         .inTable('chapters')
         .onUpdate('CASCADE')
@@ -79,6 +83,7 @@ exports.up = function (knex) {
       tbl
         .integer('user_id')
         .notNullable()
+        .unsigned()
         .references('user_id')
         .inTable('users')
         .onUpdate('CASCADE')
@@ -86,6 +91,7 @@ exports.up = function (knex) {
       tbl
         .integer('video_id')
         .notNullable()
+        .unsigned()
         .references('video_id')
         .inTable('Videos')
         .onUpdate('CASCADE')
@@ -96,9 +102,11 @@ exports.up = function (knex) {
         tbl.string('review_stars').notNullable(),
         tbl.string('commnet'),
         tbl.string('create_at'),
+        tbl.string('update_at'),
         tbl
           .integer('user_id')
           .notNullable()
+          .unsigned()
           .references('user_id')
           .inTable('users')
           .onUpdate('CASCADE')
@@ -106,6 +114,29 @@ exports.up = function (knex) {
         tbl
           .integer('course_id')
           .notNullable()
+          .unsigned()
+          .references('course_id')
+          .inTable('courses')
+          .onUpdate('CASCADE')
+          .onDelete('CASCADE');
+    })
+    .createTable('replys', tbl => {
+      tbl.increments('reply_id'),
+        tbl.string('reply'),
+        tbl.string('create_at'),
+        tbl.string('update_at'),
+        tbl
+          .integer('user_id')
+          .notNullable()
+          .unsigned()
+          .references('user_id')
+          .inTable('users')
+          .onUpdate('CASCADE')
+          .onDelete('CASCADE'),
+        tbl
+          .integer('course_id')
+          .notNullable()
+          .unsigned()
           .references('course_id')
           .inTable('courses')
           .onUpdate('CASCADE')
@@ -119,8 +150,9 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('videos')
+    .dropTableIfExists('replys')
     .dropTableIfExists('QandA')
+    .dropTableIfExists('videos')
     .dropTableIfExists('chapters')
     .dropTableIfExists('reviews')
     .dropTableIfExists('courses')

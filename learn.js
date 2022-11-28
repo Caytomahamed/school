@@ -68,3 +68,7 @@
  
  
 //  https://www.youtube.com/watch?v=SAUvlkTDMM4
+
+// file upload and connect mysql 
+https://youtu.be/XnNbizvb1uM
+// https://youtu.be/hyJiNTFtQic

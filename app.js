@@ -6,7 +6,6 @@ const reviewRouter = require("./routes/reviewRoutes")
 const videoRouter = require("./routes/videoRoutes")
 const qandARouter = require("./routes/qandARoutes");
 
-
 const AppError = require('./utils/appError');
 const globalErroHandler = require('./controllers/erroController');
 

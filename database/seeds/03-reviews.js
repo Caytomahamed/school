@@ -15,6 +15,22 @@ exports.seed = async function(knex) {
       course_id: 1,
     },
     {
+      review_stars: 2,
+      commnet:
+        "It's insane to think that I spent 5000 bucks in a private school over the course of half a year to learn what this guy has taught me in 3 h 26 m and 42 s. Youtube has truly revolutionized learning.",
+      create_at: '19/10/2020',
+      user_id: 2,
+      course_id: 1,
+    },
+    {
+      review_stars: 2,
+      commnet:
+        "It's insane to think that I spent 5000 bucks in a private school over the course of half a year to learn what this guy has taught me in 3 h 26 m and 42 s. Youtube has truly revolutionized learning.",
+      create_at: '19/10/2020',
+      user_id: 2,
+      course_id: 1,
+    },
+    {
       review_stars: 4,
       commnet:
         'As a beginner, I found this course very useful Thanks for sharing this high-quality content.',

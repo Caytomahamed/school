@@ -1,7 +1,7 @@
 const db = require('../database/dbConfig');
 
-const select = async () => {
-  return await db('videos')
+const select =  () => {
+  return db('videos')
   .select('video_id', 'video_title', 'video');
 };
 
@@ -13,6 +13,6 @@ exports.read = id => {
   return id ? videoByChapter(id) : select();
 };
 
-exports.readById = () => {
-    return selectVideo().where('v.video_id', id);
+exports.readById = async (id) => {
+    return await selectVideo().where('v.video_id', id);
 }
