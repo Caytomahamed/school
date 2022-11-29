@@ -11,8 +11,7 @@ exports.create = review => {
   return reader.createOne({
     table: 'reviews',
     newOne: review,
-    getById: this,
-    findById,
+    getById: this.findById,
   });
 };
 
