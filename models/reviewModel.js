@@ -17,7 +17,7 @@ exports.create = review => {
 
 exports.findByIdandUpdate = (id, changes) => {
   return reader.updateOne({
-    tbale: 'reviews as r',
+    table: 'reviews as r',
     condition: 'r.review_id',
     getById: this.findById,
     changes,

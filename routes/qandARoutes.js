@@ -5,6 +5,13 @@ const router = express.Router();
 
 router
      .route("/")
-     .get(qandAController.getAllQandA);
+     .get(qandAController.getAllQandA)
+     .post(qandAController.createQandA);
+     
+router
+     .route("/:id")
+     .get(qandAController.getQandA)
+     .patch(qandAController.updateQandA)
+     .delete(qandAController.deleteQandA);
      
 module.exports = router

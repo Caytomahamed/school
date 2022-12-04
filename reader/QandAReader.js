@@ -9,4 +9,7 @@ const select = () => {
 exports.read = () => {
     return select()
 }
- 
+
+exports.readById = (id) => {
+  return select().where("QandA_id", id)
+}
