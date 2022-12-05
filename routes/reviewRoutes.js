@@ -4,11 +4,11 @@ const reviewController = require('../controllers/reviewController');
 const router = express.Router({ mergeParams: true });
 
 //create new review need (login);
+
 router
   .route('/')
   .get(reviewController.getAllReviews)
-  .post(reviewController.createReviewByIdCourse, 
-        reviewController.createReview);
+  .post(reviewController.createReviewByIdCourse, reviewController.createReview);
 
 router
   .route('/:id')

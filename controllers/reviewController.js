@@ -3,8 +3,8 @@ const factory = require('./handlerFactory');
 
 // middleware
 exports.createReviewByIdCourse = (req, res, next) => {
-  req.body = { ...req.body, course_id: +req.params.id };
-  next()
+  req.params?.id && (req.body = { ...req.body, course_id: +req.params.id });
+  next();
 };
 
 exports.getAllReviews = factory.getAll(reviews);

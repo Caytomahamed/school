@@ -1,12 +1,12 @@
 const express = require("express");
 const qandAController = require("../controllers/qandAController")
 
-const router = express.Router();
+const router = express.Router({mergeParams : true});
 
 router
      .route("/")
      .get(qandAController.getAllQandA)
-     .post(qandAController.createQandA);
+     .post(qandAController.createQandAByVideoId,qandAController.createQandA);
      
 router
      .route("/:id")
@@ -14,4 +14,4 @@ router
      .patch(qandAController.updateQandA)
      .delete(qandAController.deleteQandA);
      
-module.exports = router
+module.exports = router;

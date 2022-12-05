@@ -34,6 +34,17 @@ exports.updateOne = Model =>
 exports.createOne = Model =>
   catchAsync(async (req, res, next) => {
     const [doc] = await Model.create(req.body);
+    console.log(doc);
+
+    if (!doc) {
+      return next(
+        new AppError(
+          "You can't create a this document same thing wrong.please add all requirement ",
+          404
+        )
+      );
+    }
+
     res.status(201).json({
       status: 'success',
       data: {
@@ -53,17 +64,19 @@ exports.getOne = Model =>
     res.status(200).json({
       status: 'success',
       data: {
-        data:doc,
+        data: doc,
       },
     });
   });
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    const doc = +req.params.id ? await Model.find(+req.params.id) : await Model.find();
+    const doc = req.params.id
+      ? await Model.find(+req.params.id)
+      : await Model.find();
 
     if (!doc.length) {
-      return next(new AppError('No chapter found width this ID', 404));
+      return next(new AppError('No document found width this ID', 404));
     }
 
     res.status(200).json({

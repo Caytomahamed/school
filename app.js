@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/courses', courseRouter);
 app.use('/api/v1/chapters', chapterRouter);
-app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/reviews', reviewRouter); 
 app.use('/api/v1/videos', videoRouter);
 app.use('/api/v1/QandA', qandARouter);
 app.use('/api/v1/reply', replyRouter);

@@ -3,7 +3,7 @@ const courseController = require('../controllers/courseController');
 const chapterRoutes = require('../routes/chapterRoutes');
 const reviewRoutes = require('../routes/reviewRoutes');
 
-const router = express.Router();
+const router = express.Router({mergeParams:true});
 
 // GET: /:courseId/Chapters course - chapters
 router.use('/:id/chapters', chapterRoutes);

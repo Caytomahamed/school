@@ -1,8 +1,8 @@
 const reader = require('../reader/handleReader');
 const QandAreader = require('../reader/QandAReader');
 
-exports.find = () => {
-  return QandAreader.read();
+exports.find = (id) => {
+  return QandAreader.read(id);
 };
 
 exports.findById = id => {

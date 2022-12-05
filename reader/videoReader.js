@@ -14,5 +14,5 @@ exports.read = id => {
 };
 
 exports.readById = async (id) => {
-    return await selectVideo().where('v.video_id', id);
+    return await select().where('video_id', id);
 }
