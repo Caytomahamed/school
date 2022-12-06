@@ -7,52 +7,52 @@ exports.seed = async function(knex) {
   await knex('chapters').del()
   await knex("chapters").insert([
     {
-      chapter_title:"Datastructure",
-      course_id:1,
+      chapterTitle:"Datastructure",
+      courseId:1,
     },
     {
-      chapter_title:"Async and await",
-      course_id:1,
+      chapterTitle:"Async and await",
+      courseId:1,
     },
     {
-      chapter_title:"expo ",
-      course_id:2,
+      chapterTitle:"expo ",
+      courseId:2,
     },
     {
-      chapter_title:"React native cli",
-      course_id:2,
+      chapterTitle:"React native cli",
+      courseId:2,
     },
     {
-      chapter_title:"Array",
-      course_id:3,
+      chapterTitle:"Array",
+      courseId:3,
     },
     {
-      chapter_title:"Functions",
-      course_id:3,
+      chapterTitle:"Functions",
+      courseId:3,
     },
     {
-      chapter_title:"classes ",
-      course_id:4,
+      chapterTitle:"classes ",
+      courseId:4,
     },
     {
-      chapter_title:"Interfaces",
-      course_id:4
+      chapterTitle:"Interfaces",
+      courseId:4
     },
     {
-      chapter_title:"Objects",
-      course_id:5,
+      chapterTitle:"Objects",
+      courseId:5,
     },
     {
-      chapter_title:"Connect Database",
-      course_id:5,
+      chapterTitle:"Connect Database",
+      courseId:5,
     },
     {
-      chapter_title:"Date and time",
-      course_id:6,
+      chapterTitle:"Date and time",
+      courseId:6,
     },
     {
-      chapter_title:"Geolocation",
-      course_id:6,
+      chapterTitle:"Geolocation",
+      courseId:6,
     },
   ]);
 };

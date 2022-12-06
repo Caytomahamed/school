@@ -1,68 +1,46 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex("users").del();
-  await knex("roles").del();
-  await knex("roles").insert([
-    { role_name: "admin" },
-    { role_name: "student" },
-    { role_name: "instructor" },
+  await knex('users').del();
+  await knex('roles').del();
+  await knex('roles').insert([
+    { rolename: 'admin' },
+    { rolename: 'student' },
+    { rolename: 'instructor' },
   ]);
- 
-  await knex("users").insert([
+
+  await knex('users').insert([
     {
-      username: "cayto",
-      email: "cayto@gmail.com",
-      password: 33333,
-      image:
-        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-      location: "hargeisa",
-      create_at: "2022-10-01",
-      update_at: "2022-10-03",
-      role_id: 1,
+      fristname: 'cayto',
+      secondname: 'mahamed',
+      email: 'cayto@gmail.com',
+      password: 33333333,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 1,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
     },
     {
-      username: "mahamed",
-      email: "mahamed@gmail.com",
-      password: 33333,
-      image:
-        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-      location: "hargeisa",
-      create_at: "2022-10-01",
-      update_at: "2022-10-03",
-      role_id: 3,
+      fristname: 'Omer',
+      secondname: 'Ali',
+      email: 'Omer@gmail.com',
+      password: 44444444,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 2,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
     },
     {
-      username: "hamse",
-      email: "hamse@gmail.com",
-      password: 33333,
-      image:
-        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-      location: "hargeisa",
-      create_at: "2022-10-01",
-      update_at: "2022-10-03",
-      role_id: 2,
-    },
-    {
-      username: "farax",
-      email: "hamse@gmail.com",
-      password: 33333,
-      image:
-        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-      location: "hargeisa",
-      create_at: "2022-10-01",
-      update_at: "2022-10-03",
-      role_id: 2,
-    },
-    {
-      username: "cumar",
-      email: "hamse@gmail.com",
-      password: 33333,
-      image:
-        "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
-      location: "hargeisa",
-      create_at: "2022-10-01",
-      update_at: "2022-10-03",
-      role_id: 2,
+      fristname: 'Jamac',
+      secondname: 'cabdi',
+      email: 'jamac@gmail.com',
+      password: 10101010,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 3,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
     },
   ]);
 };

@@ -5,142 +5,151 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable('roles', tbl => {
-      tbl.increments('role_id'), tbl.string('role_name');
+      tbl.increments('id'), tbl.string('rolename');
     })
     .createTable('users', tbl => {
-      tbl.increments('user_id'),
-        tbl.string('username', 128).notNullable(),
+      tbl.increments('id'),
+        tbl.string('fristName', 128).notNullable(),
+        tbl.string('secondName', 128).notNullable(),
         tbl.string('email', 128).notNullable(),
-        tbl.integer('password', 128).notNullable(),
-        tbl.string('image'),
-        tbl.string('location', 128),
-        tbl.string('create_at').notNullable(),
-        tbl.string('update_at'),
+        tbl.integer('password').notNullable().checkLength('>=', 8),
+        tbl.string('imageProfile'),
         tbl
-          .integer('role_id')
+          .integer('roleId')
           .notNullable()
           .unsigned()
-          .references('role_id')
+          .references('id')
           .inTable('roles')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT'),
+        tbl.string('createAt').notNullable(),
+        tbl.string('updateAt');
     })
     .createTable('courses', tbl => {
-      tbl.increments('course_id'),
-        tbl.string('course_title', 128).notNullable(),
+      tbl.increments('id'),
+        tbl.string('courseTitle', 128).notNullable(),
         tbl.string('description').notNullable(),
         tbl.string('thumnail').notNullable(),
         tbl.integer('price').notNullable(),
         tbl.integer('duration').notNullable(),
-        tbl.string('create_at').notNullable(),
-        tbl.string('update_at'),
         tbl
-          .integer('user_id')
+          .integer('userId')
           .notNullable()
           .unsigned()
-          .references('user_id')
+          .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT'),
+        tbl.string('createAt').notNullable(),
+        tbl.string('updateAt');
     })
     .createTable('chapters', tbl => {
-      tbl.increments('chapter_id'),
-        tbl.string('chapter_title', 128).notNullable(),
+      tbl.increments('id'),
+        tbl.string('chapterTitle', 128).notNullable(),
         tbl
-          .integer('course_id')
+          .integer('courseId')
           .notNullable()
           .unsigned()
-          .references('course_id')
+          .references('id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT');
     })
     .createTable('videos', tbl => {
-      tbl.increments('video_id'),
+      tbl.increments('id'),
         tbl.string('video').notNullable(),
-        tbl.string('video_title').notNullable(),
+        tbl.string('videoTitle').notNullable(),
         tbl
-          .integer('course_id')
+          .integer('courseId')
           .notNullable()
           .unsigned()
-          .references('course_id')
+          .references('Id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT');
       tbl
-        .integer('chapter_id')
+        .integer('chapterId')
         .notNullable()
         .unsigned()
-        .references('chapter_id')
+        .references('id')
         .inTable('chapters')
         .onUpdate('CASCADE')
-        .onDelete('CASCADE');
+        .onDelete('RESTRICT');
     })
     .createTable('QandA', tbl => {
-      tbl.increments('QandA_id');
+      tbl.increments('id');
       tbl.string('question');
-      tbl.string('create_at');
       tbl
-        .integer('user_id')
+        .integer('userId')
         .notNullable()
         .unsigned()
-        .references('user_id')
+        .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
-        .onDelete('CASCADE');
+        .onDelete('RESTRICT');
       tbl
-        .integer('video_id')
+        .integer('videoId')
         .notNullable()
         .unsigned()
-        .references('video_id')
+        .references('id')
         .inTable('Videos')
         .onUpdate('CASCADE')
-        .onDelete('CASCADE');
+        .onDelete('RESTRICT');
+
+      tbl.string('createAt').notNullable();
     })
     .createTable('reviews', tbl => {
-      tbl.increments('review_id'),
-        tbl.string('review_stars').notNullable(),
-        tbl.string('commnet'),
-        tbl.string('create_at'),
-        tbl.string('update_at'),
+      tbl.increments('id'),
+        tbl.string('stars').notNullable(),
+        tbl.string('comment'),
         tbl
-          .integer('user_id')
+          .integer('userId')
           .notNullable()
           .unsigned()
-          .references('user_id')
+          .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE'),
+          .onDelete('RESTRICT'),
         tbl
-          .integer('course_id')
+          .integer('courseId')
           .notNullable()
           .unsigned()
-          .references('course_id')
+          .references('id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT'),
+        tbl.string('createAt').notNullable(),
+        tbl.string('updateAt');
     })
-    .createTable('replys', tbl => {
-      tbl.increments('reply_id'),
+    .createTable('reply', tbl => {
+      tbl.increments('id'),
         tbl.string('reply'),
-        tbl.string('create_at'),
-        tbl.string('update_at'),
         tbl
-          .integer('user_id')
+          .integer('QandAId')
           .notNullable()
           .unsigned()
-          .references('user_id')
+          .references('id')
+          .inTable('QandA')
+          .onUpdate('CASCADE')
+          .onDelete('RESTRICT'),
+        tbl
+          .integer('videoId')
+          .notNullable()
+          .unsigned()
+          .references('id')
+          .inTable('videos')
+          .onUpdate('CASCADE')
+          .onDelete('RESTRICT'),
+        tbl
+          .integer('userId')
+          .notNullable()
+          .unsigned()
+          .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('CASCADE'),
-        tbl
-          .integer('course_id')
-          .notNullable()
-          .unsigned()
-          .references('course_id')
-          .inTable('courses')
-          .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onDelete('RESTRICT');
+
+      tbl.string('createAt').notNullable();
     });
 };
 
@@ -150,7 +159,7 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('replys')
+    .dropTableIfExists('reply')
     .dropTableIfExists('QandA')
     .dropTableIfExists('videos')
     .dropTableIfExists('chapters')

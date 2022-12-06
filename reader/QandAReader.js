@@ -2,11 +2,19 @@ const db = require('../database/dbConfig');
 
 const select = () => {
   return db('QandA as QA')
-    .join('users as u', 'QA.user_id', 'u.user_id')
-    .select('QandA_id', 'question', 'username', 'image', 'QA.create_at');
+    .join('users as u', 'QA.userId', 'u.id')
+    .select(
+      'QA.id',
+      'fristName',
+      'secondName',
+      'imageProfile',
+      'question',
+      'QA.createAt'
+    );
 };
+
 const QandAByVideo = id => {
-  return select().where('video_id', id);
+  return select().where('videoId', id);
 };
 
 exports.read = id => {
@@ -14,5 +22,5 @@ exports.read = id => {
 };
 
 exports.readById = id => {
-  return select().where('QandA_id', id);
+  return select().where('QA.id', id);
 };

@@ -71,7 +71,7 @@ exports.getOne = Model =>
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    const doc = req.params.id
+    const doc = +req.params.id
       ? await Model.find(+req.params.id)
       : await Model.find();
 
