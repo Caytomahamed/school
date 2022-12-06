@@ -7,6 +7,9 @@ const router = express.Router();
 //GET : /:userID/courses
 router.use('/:id/courses', courseRoute);
 
+//POST : /:userID/courses
+router.use('/:id/courses', courseRoute);
+
 router
   .route('/')
   .get(userController.getAllUsers)

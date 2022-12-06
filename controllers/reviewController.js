@@ -1,5 +1,11 @@
-const reviews = require("../models/reviewModel");
-const factory = require("./handlerFactory");
+const reviews = require('../models/reviewModel');
+const factory = require('./handlerFactory');
+
+// middleware
+exports.createReviewByIdCourse = (req, res, next) => {
+  req.params?.id && (req.body = { ...req.body, course_id: +req.params.id });
+  next();
+};
 
 exports.getAllReviews = factory.getAll(reviews);
 exports.getReview = factory.getOne(reviews);

@@ -1,6 +1,6 @@
 require('dotenv').config({ path: './config.env' });
 
-// NOTE: UncaughtException accurs inside middleware in production mode error become a globalerro
+// NOTE: UncaughtException accurs inside middleware in production mode error become a global erro
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 🔥 Shutting down...');
   console.log(err.name, err.message);
@@ -19,8 +19,10 @@ const listenServer = server.listen(port, () =>
 
 process.on('unhandledRejection', (err) => {
   console.log('UNHANDLE REJECTION! 🔥 Shutting down...');
-  console.log(err.name, err.message);
+  console.log(err.name, err.message,err.stack);
+  
   listenServer.close(() => {
     process.exit(1);
   });
 });
+ 

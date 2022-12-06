@@ -1,26 +1,26 @@
 const reader = require('../reader/handleReader');
-const QandAreader = require('../reader/QandAReader');
+const replyReader = require('../reader/replyReader');
 
-exports.find = (id) => {
-  return QandAreader.read(id);
+exports.find = () => {
+  return replyReader.read();
 };
 
 exports.findById = id => {
-  return QandAreader.readById(id);
+  return replyReader.readById(id);
 };
 
-exports.create = newQ => {
+exports.create = newOne => {
   return reader.createOne({
-    table: 'QandA',
-    newOne: newQ,
+    table: 'replys',
+    newOne,
     getById: this.findById,
   });
 };
 
 exports.findByIdandUpdate = (id, changes) => {
   return reader.updateOne({
-    table: 'QandA',
-    condition: 'QandA_id',
+    table: 'replys',
+    condition: 'reply_id',
     getById: this.findById,
     changes,
     id,
@@ -29,8 +29,8 @@ exports.findByIdandUpdate = (id, changes) => {
 
 exports.findByIdandDelete = id => {
   return reader.deleteOne({
-    table:"QandA",
-    condition:"QandA_id",
+    table: 'replys',
+    condition: 'reply_id',
     id,
   });
 };
