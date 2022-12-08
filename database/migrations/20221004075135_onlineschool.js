@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable('roles', tbl => {
-      tbl.increments('id'), tbl.string('rolename');
+      tbl.increments('id'), tbl.string('roleName');   
     })
     .createTable('users', tbl => {
       tbl.increments('id'),

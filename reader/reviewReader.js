@@ -1,13 +1,21 @@
 const db = require('../database/dbConfig');
 
 const select = () => {
-  return  db('reviews as r')
-    .join('users as u', 'u.user_id', 'r.user_id')
-    .select('username', 'image', 'commnet', 'review_stars', 'r.create_at');
+  return db('reviews as r')
+    .join('users as u', 'u.id', 'r.userId')
+    .select(
+      'r.id',
+      'fristName',
+      'secondName',
+      'imageProfile',
+      'comment',
+      'stars',
+      'r.createAT'
+    );
 };
 
 const reviewByCourse = id => {
-  return select().where('course_id', id);
+  return select().where('courseId', id);
 };
 
 exports.read = id => {
@@ -15,5 +23,5 @@ exports.read = id => {
 };
 
 exports.readById = async id => {
-  return await select().where('review_id', id);
+  return await select().where('r.id', id);
 };
