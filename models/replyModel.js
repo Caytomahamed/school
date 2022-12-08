@@ -1,8 +1,8 @@
 const reader = require('../reader/handleReader');
 const replyReader = require('../reader/replyReader');
 
-exports.find = () => {
-  return replyReader.read();
+exports.find = (id) => {
+  return replyReader.read(id);
 };
 
 exports.findById = id => {
@@ -11,7 +11,7 @@ exports.findById = id => {
 
 exports.create = newOne => {
   return reader.createOne({
-    table: 'replys',
+    table: 'reply',
     newOne,
     getById: this.findById,
   });
@@ -19,7 +19,7 @@ exports.create = newOne => {
 
 exports.findByIdandUpdate = (id, changes) => {
   return reader.updateOne({
-    table: 'replys',
+    table: 'reply',
     condition: 'reply_id',
     getById: this.findById,
     changes,
@@ -29,7 +29,7 @@ exports.findByIdandUpdate = (id, changes) => {
 
 exports.findByIdandDelete = id => {
   return reader.deleteOne({
-    table: 'replys',
+    table: 'reply',
     condition: 'reply_id',
     id,
   });

@@ -1,17 +1,38 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex('replys').del()
-  await knex('replys').insert([
+  await knex('reply').del();
+  await knex('reply').insert([
     {
-      reply:"do this ",
-      create_at:"01/02/2022",
-      update_at:"01/02/2022",
-      user_id:4,
-      course_id:2
-    }
+      reply: 'do this ',
+      userId: 1,
+      QandAId: 1,
+      videoId: 2,
+      createAt: '01/02/2022',
+    },
+    {
+      reply: 'do this ',
+      userId: 3,
+      QandAId: 1,
+      videoId: 2,
+      createAt: '01/02/2022',
+    },
+    {
+      reply: 'do this ',
+      userId: 2,
+      QandAId: 1,
+      videoId: 2,
+      createAt: '01/02/2022',
+    },
+    {
+      reply: 'do this ',
+      userId: 3,
+      QandAId: 2,
+      videoId: 2,
+      createAt: '01/02/2022',
+    },
   ]);
 };
