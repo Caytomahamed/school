@@ -18,7 +18,7 @@ exports.create = course => {
 exports.findByIdandUpdate = (id, changes) => {
   return reader.updateOne({
     table: 'courses as c',
-    condition: 'c.course_id',
+    condition: 'c.id',
     getById: this.findById,
     changes,
     id,
@@ -27,8 +27,8 @@ exports.findByIdandUpdate = (id, changes) => {
 
 exports.findByIdandDelete = id => {
   return reader.deleteOne({
-    table: 'courses as c',
-    condition: 'c.course_id',
+    table: 'courses',
+    condition: 'id',
     id,
   });
 };

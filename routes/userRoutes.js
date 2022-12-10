@@ -8,7 +8,7 @@ const router = express.Router();
 //NOTE: auth => signUp
 router.post(
   '/signup',
-  authController.checkRoleIfIsAdmin,
+  // authController.checkRoleIfIsAdmin,
   authController.checkPasswordConfirm,
   authController.signup
 );
