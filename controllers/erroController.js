@@ -1,9 +1,5 @@
 const AppError = require('../utils/appError');
 
-const handleErrorDB = err => {
-  return new AppError(`${err.message}`, 400);
-};
-
 const handleMissingRequireField = err => {
   return new AppError('missing same required fields ', 422);
 };
@@ -11,6 +7,9 @@ const handleMissingRequireField = err => {
 const handleInvalidTypeEntity = () => {
   return new AppError('Unexpected json error.check your json', 422);
 };
+
+const handleJWTError = erro =>
+  new AppError('Invalid token. Please log in again!', 401);
 
 const sentErrorDev = (err, res) => {
   console.log(`err.stack`.match());
@@ -21,6 +20,9 @@ const sentErrorDev = (err, res) => {
     stack: err.stack,
   });
 };
+
+const handleJWTExpired = err =>
+  new AppError('Your token is expired!. Please log in again!', 401);
 
 const sentErrorProd = (err, res) => {
   // errors we trusted
@@ -49,11 +51,12 @@ module.exports = (err, req, res, next) => {
     sentErrorDev(err, res);
   } else if (process.env.NODE_ENV != 'production') {
     let error = { ...err };
-    if (err.message === 'No course found with that ID')
-      error = handleErrorDB(err);
     if (error.code === 'SQLITE_CONSTRAINT')
       error = handleMissingRequireField(err);
     if (error.type) error = handleInvalidTypeEntity(err);
-    sentErrorProd(error, res);
+    if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
+    if (error.name === 'TokenExpiredError') error = handleJWTExpired(err);
+
+    sentErrorProd(err, res);
   }
 };
