@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable('roles', tbl => {
-      tbl.increments('id'), tbl.string('roleName');   
+      tbl.increments('id'), tbl.string('roleName');
     })
     .createTable('users', tbl => {
       tbl.increments('id'),
@@ -14,6 +14,8 @@ exports.up = function (knex) {
         tbl.string('email', 128).notNullable(),
         tbl.integer('password').notNullable().checkLength('>=', 8),
         tbl.string('imageProfile'),
+        tbl.string("passwordResetToken"),
+        tbl.string("passwordResetExpires"),
         tbl
           .integer('roleId')
           .notNullable()
@@ -21,7 +23,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('roles')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl.string('createAt').notNullable(),
         tbl.string('updateAt');
     })
@@ -39,7 +41,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl.string('createAt').notNullable(),
         tbl.string('updateAt');
     })
@@ -53,7 +55,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT');
+          .onDelete('CASCADE');
     })
     .createTable('videos', tbl => {
       tbl.increments('id'),
@@ -66,7 +68,7 @@ exports.up = function (knex) {
           .references('Id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT');
+          .onDelete('CASCADE');
       tbl
         .integer('chapterId')
         .notNullable()
@@ -74,7 +76,7 @@ exports.up = function (knex) {
         .references('id')
         .inTable('chapters')
         .onUpdate('CASCADE')
-        .onDelete('RESTRICT');
+        .onDelete('CASCADE');
     })
     .createTable('QandA', tbl => {
       tbl.increments('id');
@@ -86,7 +88,7 @@ exports.up = function (knex) {
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
-        .onDelete('RESTRICT');
+        .onDelete('CASCADE');
       tbl
         .integer('videoId')
         .notNullable()
@@ -94,7 +96,7 @@ exports.up = function (knex) {
         .references('id')
         .inTable('Videos')
         .onUpdate('CASCADE')
-        .onDelete('RESTRICT');
+        .onDelete('CASCADE');
 
       tbl.string('createAt').notNullable();
     })
@@ -109,7 +111,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl
           .integer('courseId')
           .notNullable()
@@ -117,7 +119,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('courses')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl.string('createAt').notNullable(),
         tbl.string('updateAt');
     })
@@ -131,7 +133,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('QandA')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl
           .integer('videoId')
           .notNullable()
@@ -139,7 +141,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('videos')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT'),
+          .onDelete('CASCADE'),
         tbl
           .integer('userId')
           .notNullable()
@@ -147,7 +149,7 @@ exports.up = function (knex) {
           .references('id')
           .inTable('users')
           .onUpdate('CASCADE')
-          .onDelete('RESTRICT');
+          .onDelete('CASCADE');
 
       tbl.string('createAt').notNullable();
     });

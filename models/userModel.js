@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const reader = require('../reader/handleReader');
 const userReader = require('../reader/userReader');
 
@@ -43,4 +44,23 @@ exports.changePasswordAfter = (updateTime, JWTTimestamp) => {
 
   // is mean no change
   return false;
+};
+
+// 
+exports.createPasswordResetToken = user => {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  
+  const changes = {
+    passwordResetToken: crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex'),
+    passwordResetExpires: Date.now() + 10 * 60 * 1000,
+  };
+
+  console.log("😘",resetToken, changes.passwordResetToken);
+  this.findByIdandUpdate(user.id, changes);
+
+
+  return resetToken;
 };

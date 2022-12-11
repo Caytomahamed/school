@@ -11,6 +11,5 @@ exports.updateOne = async ({ table, condition, getById, changes, id }) => {
 };
 
 exports.deleteOne = ({ table, condition, id }) => {
-  console.log(table,condition,id);
   return db(`${table}`).where(`${condition}`, id).del();
 };
