@@ -10,6 +10,7 @@ const select = aut => {
         'fristName',
         'secondName',
         'password',
+        'email',
         'imageProfile',
         'roleName',
         'createAt',

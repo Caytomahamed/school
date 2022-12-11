@@ -5,18 +5,19 @@ const courseRoute = require('./courseRoutes');
 
 const router = express.Router();
 
-//NOTE: auth => signUp
 router.post(
   '/signup',
-  // authController.checkRoleIfIsAdmin,
+  authController.checkRoleIfIsAdmin,
   authController.checkPasswordConfirm,
   authController.signup
 );
+router.post('/login', authController.login);
 
-//NOTE: auth => signUp
-router.post(
-  '/login',
-  authController.login
+router.post('/forgotpassword', authController.forgetPassword);
+router.patch(
+  '/resetPassword/:token',
+  authController.checkPasswordConfirm,
+  authController.resetPassword
 );
 
 //GET : /:userID/courses
