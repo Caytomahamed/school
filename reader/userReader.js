@@ -25,6 +25,7 @@ const select = aut => {
       'fristName',
       'secondName',
       'imageProfile',
+      'email',
       'roleName',
       'createAt',
       'updateAt'

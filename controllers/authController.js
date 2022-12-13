@@ -5,6 +5,7 @@ const usersModel = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const sentEmail = require('../utils/email');
+const { options } = require('../routes/replyRouter');
 
 // Middelware check confirm password
 exports.checkPasswordConfirm = async (req, res, next) => {
@@ -42,7 +43,20 @@ const singToken = id => {
 };
 
 const createTokenandSent = (user, statusCode, res) => {
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIREIN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  console.log(cookieOptions);
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
   const token = singToken(user.id);
+  res.cookie('jwt', token, cookieOptions);
+
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -71,7 +85,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   createTokenandSent(newUser, 201, res);
 });
 
-
 //NOTE:
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -95,7 +108,6 @@ exports.login = catchAsync(async (req, res, next) => {
   // 3). everthing is ok, send token to client
   createTokenandSent(user, 200, res);
 });
-
 
 //NOTE:
 exports.proctect = catchAsync(async (req, res, next) => {
@@ -137,7 +149,6 @@ exports.proctect = catchAsync(async (req, res, next) => {
   next();
 });
 
-
 //NOTE:
 exports.restrict = (...roles) => {
   return (req, res, next) => {
@@ -152,7 +163,6 @@ exports.restrict = (...roles) => {
   };
 };
 
-
 //NOTE:
 exports.forgetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POST email
@@ -165,7 +175,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   if (!user) {
     return new AppError('There is no user with email address!', 404);
   }
-  
+
   // 2) Generate random token
   const resetToken = usersModel.createPasswordResetToken(user);
 
@@ -200,7 +210,6 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
     );
   }
 });
-
 
 //NOTE:
 exports.resetPassword = catchAsync(async (req, res, next) => {
