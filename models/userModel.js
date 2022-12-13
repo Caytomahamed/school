@@ -57,8 +57,7 @@ exports.createPasswordResetToken = user => {
       .digest('hex'),
     passwordResetExpires: Date.now() + 10 * 60 * 1000,
   };
-
-  console.log("😘",resetToken, changes.passwordResetToken);
+  
   this.findByIdandUpdate(user.id, changes);
 
 

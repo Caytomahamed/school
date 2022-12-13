@@ -19,6 +19,7 @@ exports.seed = async function (knex) {
       roleId: 1,
       createAt: '2022-10-01',
       updateAt: '2022-10-03',
+      active: true,
     },
     {
       fristname: 'Omer',
@@ -30,6 +31,7 @@ exports.seed = async function (knex) {
       roleId: 2,
       createAt: '2022-10-01',
       updateAt: '2022-10-03',
+      active: true,
     },
     {
       fristname: 'Jamac',
@@ -41,6 +43,7 @@ exports.seed = async function (knex) {
       roleId: 3,
       createAt: '2022-10-01',
       updateAt: '2022-10-03',
+      active: true,
     },
   ]);
 };

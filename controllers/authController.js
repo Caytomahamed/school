@@ -41,6 +41,18 @@ const singToken = id => {
   });
 };
 
+const createTokenandSent = (user, statusCode, res) => {
+  const token = singToken(user.id);
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user: user,
+    },
+  });
+};
+
+//NOTE:
 exports.signup = catchAsync(async (req, res, next) => {
   const [ifEmailExisting] = await usersModel.findOne({
     condition: 'u.email',
@@ -48,7 +60,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   if (ifEmailExisting) {
-    console.log(ifEmailExisting);
     return next(
       new AppError('email Already exists. Pleasu use another one'),
       403
@@ -56,19 +67,12 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
   const [newUser] = await usersModel.create(req.body);
 
-  // token
-  const token = singToken(newUser.id);
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser,
-    },
-  });
+  // login token
+  createTokenandSent(newUser, 201, res);
 });
 
-//
 
+//NOTE:
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -89,15 +93,11 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3). everthing is ok, send token to client
-  const token = singToken(user.id);
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  createTokenandSent(user, 200, res);
 });
 
-//
 
+//NOTE:
 exports.proctect = catchAsync(async (req, res, next) => {
   // 1) check if token access
   let token;
@@ -110,7 +110,7 @@ exports.proctect = catchAsync(async (req, res, next) => {
 
   if (!token) {
     return next(
-      new AppError('You are not logged in!.Please login to get access', 401)
+      new AppError('You are not logged in!.Please log in to get access', 401)
     );
   }
 
@@ -137,8 +137,8 @@ exports.proctect = catchAsync(async (req, res, next) => {
   next();
 });
 
-//
 
+//NOTE:
 exports.restrict = (...roles) => {
   return (req, res, next) => {
     // roles ["admin", "instructor"]. role = user
@@ -152,7 +152,8 @@ exports.restrict = (...roles) => {
   };
 };
 
-//
+
+//NOTE:
 exports.forgetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POST email
   const [user] = await usersModel.findOne({
@@ -164,6 +165,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   if (!user) {
     return new AppError('There is no user with email address!', 404);
   }
+  
   // 2) Generate random token
   const resetToken = usersModel.createPasswordResetToken(user);
 
@@ -190,12 +192,17 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
       passwordResetToken: null,
       passwordResetExpires: null,
     };
+
     await usersModel.findByIdandUpdate(user.id, changes);
-    return new AppError('There was an erro senting mail. Please try latter! ');
+    return new AppError(
+      'There was an erro senting mail. Please try latter! ',
+      500
+    );
   }
 });
 
-//
+
+//NOTE:
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user base on the token
   const hashedToken = crypto
@@ -210,22 +217,46 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 
   // 2) if token has no expired and their is user set the new password
-  if (!user || user.passwordResetExpires > Date.now()) {
-    return next(new AppError('Token is invalid or expire!', 400));
+  if (!user || user.passwordResetExpires < Date.now()) {
+    return next(new AppError('Token is invalid or has a expire!', 400));
   }
-  // 3) update change passwotd at property of hte user
+
+  // 3) update change passwotd at property of into user
   const changes = {
+    password: req.body.password,
     passwordResetToken: null,
     passwordResetExpires: null,
     updateAt: Date.now() - 1000,
   };
-  console.log(user);
   await usersModel.findByIdandUpdate(user.id, changes);
 
   // 4) log the user in sent token
-  const token = singToken(user.id);
-  res.status(201).json({
-    status: 'success',
-    token,
+  createTokenandSent(user, 201, res);
+});
+
+// NOTE: update Password with current user
+exports.updatepassword = catchAsync(async (req, res, next) => {
+  // 1) Get user from the database
+  const [user] = await usersModel.findOne({
+    condition: 'u.id',
+    field: req.user.id,
+    auth: true,
   });
+
+  // 2) check if POSTed current password is correct
+  if (
+    !(await usersModel.correctPassword(req.body.currentpassword, user.password))
+  ) {
+    return next(new AppError('Your current password is wrong!', 401));
+  }
+
+  // // 3) if so, update password
+  const changes = {
+    password: req.body.password,
+    updateAt: Date.now() - 1000,
+  };
+  await usersModel.findByIdandUpdate(user.id, changes);
+
+  // 4) log user in,sent jwt
+  createTokenandSent(user, 201, res);
 });
