@@ -15,7 +15,8 @@ const select = aut => {
         'roleName',
         'createAt',
         'updateAt'
-      );
+      )
+      .where('active', true);
   }
   return db('users as u')
     .join('roles as r', 'u.roleId', 'r.id')
@@ -27,7 +28,8 @@ const select = aut => {
       'roleName',
       'createAt',
       'updateAt'
-    );
+    )
+    .where('active', true);
 };
 
 exports.read = () => {

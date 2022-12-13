@@ -20,6 +20,24 @@ router.patch(
   authController.resetPassword
 );
 
+router.patch(
+  '/updateMyPassword',
+  authController.checkPasswordConfirm,
+  authController.proctect,
+  authController.updatepassword
+);
+
+router.patch(
+  '/updateMe',
+  authController.proctect,
+  userController.updateMe
+);
+router.delete(
+  '/deleteMe',
+  authController.proctect,
+  userController.deleteMe
+);
+
 //GET : /:userID/courses
 router.use('/:id/courses', courseRoute);
 

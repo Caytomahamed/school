@@ -16,6 +16,7 @@ exports.up = function (knex) {
         tbl.string('imageProfile'),
         tbl.string("passwordResetToken"),
         tbl.string("passwordResetExpires"),
+        tbl.boolean("active").defaultTo("true"),
         tbl
           .integer('roleId')
           .notNullable()
