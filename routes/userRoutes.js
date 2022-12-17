@@ -9,6 +9,7 @@ router.post(
   '/signup',
   authController.checkRoleIfIsAdmin,
   authController.checkPasswordConfirm,
+  authController.checkIsEmailValid,
   authController.signup
 );
 router.post('/login', authController.login);
@@ -17,6 +18,7 @@ router.post('/forgotpassword', authController.forgetPassword);
 router.patch(
   '/resetPassword/:token',
   authController.checkPasswordConfirm,
+  authController.checkIsEmailValid,
   authController.resetPassword
 );
 
@@ -24,19 +26,17 @@ router.patch(
   '/updateMyPassword',
   authController.checkPasswordConfirm,
   authController.proctect,
+  authController.checkIsEmailValid,
   authController.updatepassword
 );
 
 router.patch(
   '/updateMe',
   authController.proctect,
+  authController.checkIsEmailValid,
   userController.updateMe
 );
-router.delete(
-  '/deleteMe',
-  authController.proctect,
-  userController.deleteMe
-);
+router.delete('/deleteMe', authController.proctect, userController.deleteMe);
 
 //GET : /:userID/courses
 router.use('/:id/courses', courseRoute);

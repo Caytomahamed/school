@@ -1,6 +1,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const xss = require('xss-clean');
 
 const userRouter = require('./routes/userRoutes');
 const courseRouter = require('./routes/courseRoutes');
@@ -16,6 +17,9 @@ const app = express();
 
 // set security HTTP headers
 app.use(helmet());
+
+// Data sanitization again XSS
+// app.use(xss());
 
 // Limit request from same API
 const limiter = rateLimit({

@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const crypto = require('crypto');
+const isEmail = require('validator/lib/isEmail');
+
 const usersModel = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const sentEmail = require('../utils/email');
-const { options } = require('../routes/replyRouter');
 
 // Middelware check confirm password
 exports.checkPasswordConfirm = async (req, res, next) => {
@@ -24,9 +25,16 @@ exports.checkPasswordConfirm = async (req, res, next) => {
   next();
 };
 
+exports.checkIsEmailValid = catchAsync(async (req, res, next) => {
+  if (!isEmail(`${req.body.email}`)) {
+    return next(new AppError('email is not valid.Please try again'));
+  }
+  next();
+});
+
 // Middleware Admin role not allowed
 
-exports.checkRoleIfIsAdmin = (req, res, next) => {
+exports.checkRoleIfIsAdmin = catchAsync((req, res, next) => {
   const checker = `${req.body.roleName}`.toLowerCase().trim() === 'admin';
   if (checker) {
     return next(
@@ -34,7 +42,7 @@ exports.checkRoleIfIsAdmin = (req, res, next) => {
     );
   }
   next();
-};
+});
 
 const singToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
