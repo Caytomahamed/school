@@ -12,6 +12,8 @@ const qandARouter = require('./routes/qandARoutes');
 const replyRouter = require('./routes/replyRouter');
 const AppError = require('./utils/appError');
 const globalErroHandler = require('./controllers/erroController');
+const authController = require("./controllers/authController")
+
 
 const app = express();
 
@@ -19,12 +21,12 @@ const app = express();
 app.use(helmet());
 
 // Data sanitization again XSS
-// app.use(xss());
+app.use(xss());
 
 // Limit request from same API
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3, // Limit each IP to 100 requests per `window` (here, per 1hour)
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 1hour)
   message: 'Too many requests from this IP.please try again in an hour',
 });
 app.use('/api', limiter);

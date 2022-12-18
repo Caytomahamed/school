@@ -10,10 +10,10 @@ exports.seed = async function (knex) {
 
   await knex('users').insert([
     {
-      fristname: 'cayto',
-      secondname: 'mahamed',
-      email: 'cayto@gmail.com',
-      password: 33333333,
+      fristname: 'admin',
+      secondname: 'admin',
+      email: 'admin@gmail.com',
+      password: "$2b$12$8qxZIr86Rg9O.cG3K2Yyx.aKJb1CQqA8rI3grhDvdhyFMi51uufqa",//admin123
       imageProfile:
         'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
       roleId: 1,

@@ -12,7 +12,7 @@ const handleJWTError = erro =>
   new AppError('Invalid token. Please log in again!', 401);
 
 const sentErrorDev = (err, res) => {
-  console.log(`err.stack`.match());
+  console.log("🤚",err);
   return res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -35,7 +35,8 @@ const sentErrorProd = (err, res) => {
     // programing(databases) or unknow erro
   } else {
     // log error
-    console.log('ERROR 🔥', err);
+    console.log('ERROR 🔥',);
+  
     res.status(500).json({
       status: 'error',
       message: 'Something went very wrong!',
@@ -57,6 +58,6 @@ module.exports = (err, req, res, next) => {
     if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
     if (error.name === 'TokenExpiredError') error = handleJWTExpired(err);
 
-    sentErrorProd(err, res);
+    sentErrorProd(error, res);
   }
 };

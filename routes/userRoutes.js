@@ -13,7 +13,6 @@ router.post(
   authController.signup
 );
 router.post('/login', authController.login);
-
 router.post('/forgotpassword', authController.forgetPassword);
 router.patch(
   '/resetPassword/:token',
@@ -22,36 +21,41 @@ router.patch(
   authController.resetPassword
 );
 
+
+// Protect all routes after this middleware
+router.use(authController.proctect);
+
+router.patch('/updateMe', userController.updateMe);
 router.patch(
   '/updateMyPassword',
   authController.checkPasswordConfirm,
-  authController.proctect,
   authController.checkIsEmailValid,
   authController.updatepassword
-);
-
-router.patch(
-  '/updateMe',
-  authController.proctect,
-  authController.checkIsEmailValid,
-  userController.updateMe
-);
-router.delete('/deleteMe', authController.proctect, userController.deleteMe);
+  );
+  
+router.delete('/deleteMe', userController.deleteMe);
 
 //GET : /:userID/courses
-router.use('/:id/courses', courseRoute);
+router.use(
+  '/:id/courses',
+  authController.restrictTo('admin', 'instructor'),
+  courseRoute
+);
 
 //POST : /:userID/courses
-router.use('/:id/courses', courseRoute);
+router.use(
+  '/:id/courses',
+  authController.restrictTo('admin', 'instructor'),
+  courseRoute
+);
+
+// Only access with Admin after this middleware
+router.use(authController.restrictTo('admin'));
 
 router
   .route('/')
   .get(userController.getAllUsers)
-  .post(
-    authController.checkRoleIfIsAdmin,
-    authController.checkPasswordConfirm,
-    userController.createUser
-  );
+  .post(userController.createUser);
 
 router
   .route('/:id')

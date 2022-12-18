@@ -16,22 +16,19 @@ router
   .get(chapterController.getAllChapters)
   .post(
     authController.proctect,
-    authController.restrict('admin', 'instructor'),
     chapterController.createChapterByIdCourse,
     chapterController.createChapter
   );
 
 router
   .route('/:id')
-  .get(chapterController.getChapter)
+  .get(chapterController.getChapter) 
   .patch(
     authController.proctect,
-    authController.restrict('admin', 'instructor'),
     chapterController.updateChapter
   )
   .delete(
     authController.proctect,
-    authController.restrict('admin', 'instructor'),
     chapterController.deleteChapter
   );
 

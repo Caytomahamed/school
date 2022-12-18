@@ -14,9 +14,9 @@ exports.up = function (knex) {
         tbl.string('email', 128).notNullable(),
         tbl.integer('password').notNullable().checkLength('>=', 8),
         tbl.string('imageProfile'),
-        tbl.string("passwordResetToken"),
-        tbl.string("passwordResetExpires"),
-        tbl.boolean("active").defaultTo("true"),
+        tbl.string('passwordResetToken'),
+        tbl.string('passwordResetExpires'),
+        tbl.boolean('active').defaultTo('true'),
         tbl
           .integer('roleId')
           .notNullable()
@@ -108,6 +108,7 @@ exports.up = function (knex) {
         tbl
           .integer('userId')
           .notNullable()
+          .unique()
           .unsigned()
           .references('id')
           .inTable('users')

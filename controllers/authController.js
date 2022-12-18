@@ -9,7 +9,7 @@ const catchAsync = require('../utils/catchAsync');
 const sentEmail = require('../utils/email');
 
 // Middelware check confirm password
-exports.checkPasswordConfirm = async (req, res, next) => {
+exports.checkPasswordConfirm = catchAsync(async (req, res, next) => {
   const { password, passwordConfirm } = req.body;
 
   const checker =
@@ -23,19 +23,19 @@ exports.checkPasswordConfirm = async (req, res, next) => {
 
   checker && delete req.body.passwordConfirm;
   next();
-};
+});
 
 exports.checkIsEmailValid = catchAsync(async (req, res, next) => {
   if (!isEmail(`${req.body.email}`)) {
-    return next(new AppError('email is not valid.Please try again'));
+    return next(new AppError('email is not valid.Please try again', 400));
   }
   next();
 });
 
 // Middleware Admin role not allowed
-
-exports.checkRoleIfIsAdmin = catchAsync((req, res, next) => {
+exports.checkRoleIfIsAdmin = catchAsync(async (req, res, next) => {
   const checker = `${req.body.roleName}`.toLowerCase().trim() === 'admin';
+  
   if (checker) {
     return next(
       new AppError('Not allowed to be admin. Bluid your own one', 401)
@@ -58,9 +58,9 @@ const createTokenandSent = (user, statusCode, res) => {
     httpOnly: true,
   };
 
-  console.log(cookieOptions);
-
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  
+  console.log("😡",user);
 
   const token = singToken(user.id);
   res.cookie('jwt', token, cookieOptions);
@@ -74,17 +74,17 @@ const createTokenandSent = (user, statusCode, res) => {
   });
 };
 
-//NOTE:
+
 exports.signup = catchAsync(async (req, res, next) => {
   const [ifEmailExisting] = await usersModel.findOne({
     condition: 'u.email',
     field: req.body.email,
   });
 
+  console.log(ifEmailExisting);
   if (ifEmailExisting) {
     return next(
-      new AppError('email Already exists. Pleasu use another one'),
-      403
+      new AppError('Email Already exists. Pleasu use another one', 400)
     );
   }
   const [newUser] = await usersModel.create(req.body);
@@ -93,7 +93,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   createTokenandSent(newUser, 201, res);
 });
 
-//NOTE:
+
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -108,6 +108,7 @@ exports.login = catchAsync(async (req, res, next) => {
     field: req.body.email,
     auth: true,
   });
+  
 
   if (!user || !(await usersModel.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
@@ -117,7 +118,7 @@ exports.login = catchAsync(async (req, res, next) => {
   createTokenandSent(user, 200, res);
 });
 
-//NOTE:
+
 exports.proctect = catchAsync(async (req, res, next) => {
   // 1) check if token access
   let token;
@@ -157,8 +158,8 @@ exports.proctect = catchAsync(async (req, res, next) => {
   next();
 });
 
-//NOTE:
-exports.restrict = (...roles) => {
+
+exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ["admin", "instructor"]. role = user
     if (!roles.includes(req.user.roleName)) {
@@ -171,7 +172,7 @@ exports.restrict = (...roles) => {
   };
 };
 
-//NOTE:
+
 exports.forgetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POST email
   const [user] = await usersModel.findOne({
@@ -219,7 +220,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   }
 });
 
-//NOTE:
+
 exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user base on the token
   const hashedToken = crypto
