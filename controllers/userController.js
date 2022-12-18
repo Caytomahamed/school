@@ -11,7 +11,7 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.updateMe = async (req, res, next) => {
+exports.updateMe = catchAsync(async (req, res, next) => {
   // 1. Create error if user PATCHs password
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -22,7 +22,7 @@ exports.updateMe = async (req, res, next) => {
     );
   }
 
-  // 2) giltered out unwanterd field that are not allowed to be updated
+  // 2) filtered out unwanterd field that are not allowed to be updated
   const filteredBody = filterObj(req.body, 'fristName', 'secondName', 'email');
 
   //  3) update user document
@@ -40,7 +40,7 @@ exports.updateMe = async (req, res, next) => {
       user: updateUser,
     },
   });
-};
+});
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   console.log(req.user);

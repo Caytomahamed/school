@@ -26,7 +26,7 @@ router
   .patch(courseController.updateCourse)
   .delete(
     authController.proctect,
-    authController.restrict('admin', 'instructor'),
+    authController.restrictTo('admin', 'instructor'),
     courseController.deleteCourse
   );
 

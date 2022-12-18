@@ -3,7 +3,7 @@ require('dotenv').config({ path: './config.env' });
 // NOTE: UncaughtException accurs inside middleware in production mode error become a global erro
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 🔥 Shutting down...');
-  console.log(err.name, err.message);
+  console.log(err.name, err.message,err.stack);
   process.exit(1);
 }); 
 
