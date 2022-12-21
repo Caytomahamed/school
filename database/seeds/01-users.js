@@ -45,5 +45,53 @@ exports.seed = async function (knex) {
       updateAt: '2022-10-03',
       active: true,
     },
+    {
+      fristname: 'Omer',
+      secondname: 'Ali',
+      email: 'Omer@gmail.com',
+      password: 44444444,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 2,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
+      active: true,
+    },
+    {
+      fristname: 'Jamac',
+      secondname: 'cabdi',
+      email: 'jamac@gmail.com',
+      password: 10101010,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 3,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
+      active: true,
+    },
+    {
+      fristname: 'Omer',
+      secondname: 'Ali',
+      email: 'Omer@gmail.com',
+      password: 44444444,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 2,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
+      active: true,
+    },
+    {
+      fristname: 'Jamac',
+      secondname: 'cabdi',
+      email: 'jamac@gmail.com',
+      password: 10101010,
+      imageProfile:
+        'https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg',
+      roleId: 3,
+      createAt: '2022-10-01',
+      updateAt: '2022-10-03',
+      active: true,
+    },
   ]);
 };

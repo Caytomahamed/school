@@ -35,6 +35,8 @@ exports.up = function (knex) {
         tbl.string('thumnail').notNullable(),
         tbl.integer('price').notNullable(),
         tbl.integer('duration').notNullable(),
+        tbl.string('level').notNullable(),
+        tbl.integer('ratingsAverage').defaultTo(0),
         tbl
           .integer('userId')
           .notNullable()

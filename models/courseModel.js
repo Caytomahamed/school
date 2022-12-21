@@ -7,6 +7,8 @@ exports.find = id => {
 
 exports.findById = id => courseReader.readById(id);
 
+exports.filter = filter => courseReader.filter(filter);
+
 exports.create = course => {
   return reader.createOne({
     table: 'courses',
@@ -30,5 +32,18 @@ exports.findByIdandDelete = id => {
     table: 'courses',
     condition: 'id',
     id,
+  });
+};
+
+const rating = () => courseReader.rating();
+
+exports.ratingToDb = async () => {
+  const rate = await rating();
+  rate.forEach(async el => {
+    if (el.ratingsAverage) {
+      await courseReader.addRatingIntoDB(el.id, {
+        ratingsAverage: el.ratingsAverage,
+      });
+    }
   });
 };
