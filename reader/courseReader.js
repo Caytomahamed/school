@@ -12,10 +12,11 @@ const select = () => {
       'description',
       'thumnail',
       'duration',
-      'price'
+      'level',
+      'price',
+      'ratingsAverage'
     )
-    .avg('r.stars as averageReviews')
-    .count('r.id as numberOfreviewers')
+    .count('r.id as ratingsPeople')
     .groupBy('c.id');
 };
 
@@ -29,4 +30,21 @@ exports.read = id => {
 
 exports.readById = async id => {
   return await select().where('c.id', id);
+};
+
+exports.filter = filter => {
+  return select().where(filter);
+};
+
+exports.rating = () => {
+  return db('courses as c')
+    .leftJoin('users as u', 'c.userId', 'u.id')
+    .leftJoin('reviews as r', 'c.id', 'r.courseId')
+    .select('c.id')
+    .avg('r.stars as ratingsAverage')
+    .groupBy('c.id');
+};
+
+exports.addRatingIntoDB = (id, changes) => {
+  return db('courses').where('id', id).update(changes);
 };
