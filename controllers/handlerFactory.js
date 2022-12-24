@@ -84,11 +84,10 @@ exports.getAll = Model =>
     let queryObJ = { ...req.query };
     const excludedFields = ['page', 'sort', 'limit', 'field'];
     excludedFields.forEach(el => delete queryObJ[el]);
-
     // 3B)Addvanced filtering
     if (queryObJ.duration?.hasOwnProperty('&lt;')) {
       query = Model.find()
-        .where(`duration`, '<', `${queryObJ.duration['&lt;']}`)
+        .where(`duration`, '<', ``)
         .andWhere('level', `${queryObJ.level}`);
     }
     if (queryObJ.duration?.hasOwnProperty('>')) {
@@ -113,16 +112,55 @@ exports.getAll = Model =>
             sortBy.price.slice(0, sortBy.price.length - 1),
             sortBy.ratingsAverage
           ));
+    } else {
+      query = Model.find().orderBy('c.createAt');
     }
 
-    // 5) await doc
+    // limit Field
+    if (req.query.field) {
+      const excludeField = [
+        'email',
+        'password',
+        'passwordResetToken',
+        'passwordResetExpires',
+        'active',
+        'roleId',
+        'roleId',
+        'stars',
+        'comment',
+        'courseId',
+      ];
+      let fields = req.query.field.split(/\s*,\s*/);
+      fields = fields.filter(el => !excludeField.includes(el));
+      fields.unshift('c.id');
+      query = Model.fieldLimit().select(fields);
+    }
+
+    // 6) Pagination
+    // { page: '2', 'limit ': '10' } page1: 1-10,  page2:11-20,  page3:21-30
+    const page = req.query.page * 1 || 1; // default page 1
+    const limit = req.query.limit * 1 || 100; // default 50 document
+    const skip = (page - 1) * limit;
+
+    if (req.query.page) {
+      const [numCourses] = await Model.countCourses();
+      if (skip >= numCourses.count) {
+        return next(new AppError("This page doesn't Exist!", 404));
+      }
+      query = Model.find().offset(skip).limit(limit);
+    }
+
+    console.log(req.query);
+    console.log(page, limit, skip);
+
+    // 6) await document
     const doc = await query;
 
     if (!doc.length) {
       return next(new AppError('No document found', 404));
     }
-    
-    // Sent back 
+
+    // 7) Sent back
     res.status(200).json({
       status: 'success',
       result: doc.length,

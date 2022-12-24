@@ -1,23 +1,26 @@
 const db = require('../database/dbConfig');
 
 const select = () => {
-  return db('courses as c')
-    .leftJoin('users as u', 'c.userId', 'u.id')
-    .leftJoin('reviews as r', 'c.id', 'r.courseId')
-    .select(
-      'c.id',
-      'fristName',
-      'secondName',
-      'courseTitle',
-      'description',
-      'thumnail',
-      'duration',
-      'level',
-      'price',
-      'ratingsAverage'
-    )
-    .count('r.id as ratingsPeople')
-    .groupBy('c.id');
+  return (
+    db('courses as c')
+      .leftJoin('users as u', 'c.userId', 'u.id')
+      .leftJoin('reviews as r', 'c.id', 'r.courseId')
+      .select(
+        'c.id',
+        'courseTitle',
+        'description',
+        'thumnail',
+        'level',
+        'duration',
+        'ratingsAverage',
+        'price',
+        'fristName',
+        'secondName'
+      )
+      // .count('r.id as ratingsPeople')
+      .countDistinct('c.id as count')
+      .groupBy('c.id')
+  );
 };
 
 const courseByUser = id => {
@@ -47,4 +50,15 @@ exports.rating = () => {
 
 exports.addRatingIntoDB = (id, changes) => {
   return db('courses').where('id', id).update(changes);
+};
+
+exports.limitField = () => {
+  return db('courses as c')
+    .leftJoin('users as u', 'c.userId', 'u.id')
+    .leftJoin('reviews as r', 'c.id', 'r.courseId')
+    .groupBy('c.id');
+};
+
+exports.countCourses = () => {
+  return db('courses').count('id as count');
 };

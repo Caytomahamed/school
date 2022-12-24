@@ -8,6 +8,8 @@ exports.find = id => {
 exports.findById = id => courseReader.readById(id);
 
 exports.filter = filter => courseReader.filter(filter);
+exports.fieldLimit = () => courseReader.limitField()
+exports.countCourses = () => courseReader.countCourses()
 
 exports.create = course => {
   return reader.createOne({
