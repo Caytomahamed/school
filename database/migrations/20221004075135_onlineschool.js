@@ -29,7 +29,7 @@ exports.up = function (knex) {
         tbl.string('updateAt');
     })
     .createTable('courses', tbl => {
-      tbl.increments('id'),
+      tbl.increments('id').unique(),
         tbl.string('courseTitle', 128).notNullable(),
         tbl.string('description').notNullable(),
         tbl.string('thumnail').notNullable(),
@@ -110,7 +110,7 @@ exports.up = function (knex) {
         tbl
           .integer('userId')
           .notNullable()
-          .unique()
+          // .unique() // just for dev 
           .unsigned()
           .references('id')
           .inTable('users')

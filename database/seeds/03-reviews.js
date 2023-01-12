@@ -44,15 +44,15 @@ exports.seed = async function (knex) {
         'What a wonderful course. So informative and simple! Thank you for putting so much time into creating this.',
       createAt: '19/12/2020',
       userId: 5,
-      courseId: 5,
+      courseId: 45,
     },
     {
-      stars: 5,
+      stars: 2,
       comment:
         'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
       createAt: '19/11/2020',
       userId: 6,
-      courseId: 6,
+      courseId: 56,
     },
     {
       stars: 5,
@@ -60,63 +60,63 @@ exports.seed = async function (knex) {
         'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
       createAt: '19/10/2022',
       userId: 7,
-      courseId: 2,
+      courseId: 20,
     },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '19/10/2021',
-    //   userId: 2,
-    //   courseId: 3,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '19/10/2021',
-    //   userId: 2,
-    //   courseId: 4,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '1/10/2022',
-    //   userId: 1,
-    //   courseId: 4,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '5/10/2020',
-    //   userId: 3,
-    //   courseId: 5,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '19/8/2020',
-    //   userId: 3,
-    //   courseId: 5,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '19/11/2021',
-    //   userId: 3,
-    //   courseId: 6,
-    // },
-    // {
-    //   stars: 5,
-    //   comment:
-    //     'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
-    //   createAt: '19/8/2022',
-    //   userId: 3,
-    //   courseId: 6,
-    // },
+    {
+      stars: 5,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '19/10/2021',
+      userId: 2,
+      courseId: 3,
+    },
+    {
+      stars: 4,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '19/10/2021',
+      userId: 2,
+      courseId: 37,
+    },
+    {
+      stars: 5,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '1/10/2022',
+      userId: 1,
+      courseId: 40,
+    },
+    {
+      stars: 3,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '5/10/2020',
+      userId: 3,
+      courseId: 62,
+    },
+    {
+      stars: 4.7,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '19/8/2020',
+      userId: 3,
+      courseId: 51,
+    },
+    {
+      stars: 3.9,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '19/11/2021',
+      userId: 3,
+      courseId: 36,
+    },
+    {
+      stars: 3,
+      comment:
+        'I like how an entire class of this will make you put blocks of code together and learn nothing for an entire semester and this 3 hour video teaches more than an actual school course and is easy to understand and fix mistakes.',
+      createAt: '19/8/2022',
+      userId: 3,
+      courseId: 13,
+    },
   ]);
 };

@@ -15,6 +15,11 @@ router.use('/:id/chapter', chapterRoutes);
 // GET /:courseId/reviews => course per reviews
 router.use('/:id/reviews', reviewRoutes);
 
+
+router
+  .route('/top-5-courses')
+  .get(authController.proctect, courseController.aliasTopCourses,courseController.getAllCourses);
+
 router
   .route('/')
   .get(authController.proctect, courseController.getAllCourses)
